@@ -35,7 +35,7 @@ class Sorter
             if ($items->has($key)) {
                 $result->put($key, $items->get($key));
             }
-        };
+        }
 
         return $result;
     }
