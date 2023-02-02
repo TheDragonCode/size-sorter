@@ -4,43 +4,33 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Services;
 
-use DragonCode\SizeSorter\Contracts\GroupMatcher;
+use DragonCode\SizeSorter\Detectors\Base as BaseDetector;
 use DragonCode\SizeSorter\Detectors\Group1;
 use DragonCode\SizeSorter\Detectors\Group2;
 use DragonCode\SizeSorter\Detectors\Group3;
 use DragonCode\SizeSorter\Detectors\Group4;
-use DragonCode\SizeSorter\Enum\Groups;
+use DragonCode\SizeSorter\Enum\Group;
 
 class GroupsDetector
 {
-    /** @var array<class-string, Groups> */
-    protected array $detectors = [
-        Group1::class => Groups::GROUP_1,
-        Group2::class => Groups::GROUP_2,
-        Group3::class => Groups::GROUP_3,
-        Group4::class => Groups::GROUP_4,
+    /** @var array<class-string|BaseDetector, Group> */
+    protected static array $detectors = [
+        Group1::class => Group::GROUP_1,
+        Group2::class => Group::GROUP_2,
+        Group3::class => Group::GROUP_3,
+        Group4::class => Group::GROUP_4,
     ];
 
-    protected Groups $default = Groups::GROUP_5;
+    protected static Group $default = Group::GROUP_5;
 
-    public function __construct(
-        protected Str $str = new Str()
-    ) {
-    }
-
-    public function detect(string $value): int
+    public static function detect(string $value): int
     {
-        foreach ($this->detectors as $detector => $group) {
-            if ($this->resolve($detector)->detect($value)) {
+        foreach (static::$detectors as $detector => $group) {
+            if ($detector::detect($value)) {
                 return $group->value;
             }
         }
 
-        return $this->default->value;
-    }
-
-    protected function resolve(string $matcher): GroupMatcher
-    {
-        return new $matcher($this->str);
+        return static::$default->value;
     }
 }

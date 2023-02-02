@@ -8,55 +8,50 @@ use DragonCode\Support\Helpers\Ables\Stringable;
 
 class Resolver
 {
-    public function __construct(
-        protected Str $str = new Str()
-    ) {
-    }
-
-    public function key(mixed $value, string $column): mixed
+    public static function key(mixed $value, string $column): mixed
     {
         return $value->{$column} ?? $value[$column] ?? $value;
     }
 
-    public function value(mixed $value, string $column): Stringable
+    public static function value(mixed $value, string $column): Stringable
     {
-        return $this->prepare($value, $column)
+        return static::prepare($value, $column)
             ->replace(['\\', '-'], '/')
             ->before('/')
             ->lower();
     }
 
-    public function number(mixed $value, string $column): array
+    public static function number(mixed $value, string $column): array
     {
-        return $this->prepare($value, $column)
+        return static::prepare($value, $column)
             ->replace(['\\', '-'], '/')
             ->explode('/')
-            ->map(fn (mixed $val) => (int) $val)
+            ->map(static fn (mixed $val) => (int) $val)
             ->toArray();
     }
 
-    public function size(string $value): string
+    public static function size(string $value): string
     {
-        if ($this->str->match($value, '/(\d+x)/')) {
-            return $this->str->replace('x', '', $value);
+        if (Str::match($value, '/(\d+x)/')) {
+            return Str::replace('x', '', $value);
         }
 
-        if ($count = $this->str->count($value)) {
-            return $this->str->replace($value, $this->str->pad($count), $count);
+        if ($count = Str::count($value)) {
+            return Str::replace($value, Str::pad($count), $count);
         }
 
-        return $this->str->replace($value, ['s', 'm', 'l'], ['0s', '0m', '0l']);
+        return Str::replace($value, ['s', 'm', 'l'], ['0s', '0m', '0l']);
     }
 
-    public function callback(callable $callback, mixed ...$parameters): mixed
+    public static function callback(callable $callback, mixed ...$parameters): mixed
     {
         return $callback(...$parameters);
     }
 
-    protected function prepare(mixed $value, string $column): Stringable
+    protected static function prepare(mixed $value, string $column): Stringable
     {
-        return $this->str->of(
-            $this->key($value, $column)
+        return Str::of(
+            static::key($value, $column)
         )
             ->squish()
             ->trim();

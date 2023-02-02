@@ -4,31 +4,34 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Detectors;
 
+use DragonCode\SizeSorter\Services\Resolver;
+use DragonCode\SizeSorter\Services\Str;
+
 class Group4 extends Base
 {
-    protected array|string $pattern = [
+    protected static array|string $pattern = [
         '/^([\d\-hx\*]*0s0m)$/',
         '/^(\d+[a-f])$/',
     ];
 
-    protected function prepare(string $value): string
+    protected static function prepare(string $value): string
     {
-        return $this->str->of($value)
+        return Str::of($value)
             ->squish()
             ->trim()
             ->replace('\\', '/')
             ->explode('/')
-            ->map(fn (string $value) => $this->compact($value))
+            ->map(static fn (string $value) => static::compact($value))
             ->implode('/')
             ->toString();
     }
 
-    protected function compact(string $value): string
+    protected static function compact(string $value): string
     {
-        return $this->str->of($value)
+        return Str::of($value)
             ->slug()
             ->explode('-')
-            ->map(fn (string $value) => $this->resolver->size($value))
+            ->map(static fn (string $value) => Resolver::size($value))
             ->implode('-')
             ->toString();
     }

@@ -14,7 +14,7 @@ use ArchTech\Enums\Values;
  * @method static int GROUP_4()
  * @method static int GROUP_5()
  */
-enum Groups: int
+enum Group: int
 {
     use InvokableCases;
     use Values;
@@ -30,7 +30,7 @@ enum Groups: int
     // Other values
     case GROUP_5 = 5;
 
-    public static function exists(Groups|string|int $group): bool
+    public static function exists(Group|string|int $group): bool
     {
         $value = $group->value ?? (int) $group;
 

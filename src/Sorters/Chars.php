@@ -4,27 +4,30 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
+use DragonCode\SizeSorter\Services\Resolver;
+use DragonCode\SizeSorter\Services\Str;
+
 class Chars extends Base
 {
-    public function callback(string $column, int $arrow = 1): callable
+    public static function callback(string $column, int $arrow = 1): callable
     {
-        return function (mixed $a, mixed $b) use ($column, $arrow) {
-            $a = $this->key($a, $column);
-            $b = $this->key($b, $column);
+        return static function (mixed $a, mixed $b) use ($column, $arrow) {
+            $a = static::key($a, $column);
+            $b = static::key($b, $column);
 
-            $arrow = $this->contains($a, '/') && $this->contains($b, '-') ? -1 : 1;
+            $arrow = static::contains($a, '/') && static::contains($b, '-') ? -1 : 1;
 
-            return $this->resolver->callback($this->resolveArrow($arrow, $column), $a, $b);
+            return Resolver::callback(static::resolveArrow($arrow, $column), $a, $b);
         };
     }
 
-    protected function resolveArrow(int $arrow, string $column): callable
+    protected static function resolveArrow(int $arrow, string $column): callable
     {
-        return $this->sorter(Arrow::class)->callback($column, $arrow);
+        return Arrow::callback($column, $arrow);
     }
 
-    protected function contains(string $value, string $needle): bool
+    protected static function contains(string $value, string $needle): bool
     {
-        return $this->str->contains($value, $needle);
+        return Str::contains($value, $needle);
     }
 }
