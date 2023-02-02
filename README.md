@@ -86,6 +86,8 @@ $items = Size::query()->get();
 return Sorter::sort($items, 'title');
 ```
 
+> You can see more examples in the [test file](tests/Sorters/StaticallyTest.php).
+
 ## License
 
 This package is licensed under the [MIT License](LICENSE).
