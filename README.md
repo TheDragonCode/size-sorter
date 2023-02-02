@@ -32,11 +32,11 @@ Or manually update `require-dev` block of `composer.json` and run composer updat
 
 > Note: This package can work outside the frameworks systems.
 
-| Service | Versions                |
-|:--------|:------------------------|
-| PHP     | ^8.0                    |
-| Laravel | ^7.0, ^8.0, ^9.0, ^10.0 |
-| Symfony | ^5.3, ^6.0              |
+| Service | Versions          |
+|:--------|:------------------|
+| PHP     | ^8.1              |
+| Laravel | ^8.0, ^9.0, ^10.0 |
+| Symfony | ^5.3, ^6.0        |
 
 ## Usage
 
