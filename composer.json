@@ -1,0 +1,74 @@
+{
+    "name": "dragon-code/size-sorter",
+    "description": "Easily sort clothing size, height, bra size, furniture size and more",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "size",
+        "sorter",
+        "size-sorter",
+        "bra-size",
+        "furniture-size",
+        "dragon-code",
+        "andrey-helldar"
+    ],
+    "authors": [
+        {
+            "name": "Andrey Helldar",
+            "email": "helldar@dragon-code.pro"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/TheDragonCode/size-sorter/issues",
+        "source": "https://github.com/TheDragonCode/size-sorter"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/TheDragonCode"
+        },
+        {
+            "type": "open_collective",
+            "url": "https://opencollective.com/dragon-code"
+        },
+        {
+            "type": "boosty",
+            "url": "https://boosty.to/dragon-code"
+        },
+        {
+            "type": "yoomoney",
+            "url": "https://yoomoney.ru/to/410012608840929"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "dragon-code/support": "^6.9",
+        "illuminate/collections": "^7.30.6 || ^8.75 || ^9.0 || ^10.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.21",
+        "phpunit/phpunit": "^9.5",
+        "symfony/var-dumper": "^5.3 || ^6.0"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "DragonCode\\SizeSorter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dragon-code/codestyler": true,
+            "ergebnis/composer-normalize": true,
+            "friendsofphp/php-cs-fixer": true
+        },
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
