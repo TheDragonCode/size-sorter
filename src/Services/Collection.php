@@ -8,32 +8,32 @@ use Illuminate\Support\Collection as IC;
 
 class Collection
 {
-    public function make(array $items = []): IC
+    public static function make(array $items = []): IC
     {
         return new IC($items);
     }
 
-    public function flatten(IC $items): IC
+    public static function flatten(IC $items): IC
     {
-        $result = $this->make();
+        $result = static::make();
 
-        $items->each(function (mixed $value, mixed $key) use (&$result) {
+        $items->each(static function (mixed $value, mixed $key) use (&$result) {
             if (! $value instanceof IC) {
                 $result->put($key, $value);
 
                 return;
             }
 
-            $result = $this->merge($result, $this->flatten($value));
+            $result = static::merge($result, static::flatten($value));
         });
 
         return $result;
     }
 
-    public function merge(IC $result, IC $second): IC
+    public static function merge(IC $result, IC $second): IC
     {
         $second->each(
-            fn (mixed $value, mixed $key) => $result->put($key, $value)
+            static fn (mixed $value, mixed $key) => $result->put($key, $value)
         );
 
         return $result;

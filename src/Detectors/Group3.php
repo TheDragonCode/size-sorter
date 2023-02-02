@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Detectors;
 
+use DragonCode\SizeSorter\Services\Str;
+
 class Group3 extends Base
 {
-    protected array|string $pattern = '/^(\d+[a-f]{1,2})$/';
+    protected static array|string $pattern = '/^(\d+[a-f]{1,2})$/';
 
-    protected function prepare(string $value): string
+    protected static function prepare(string $value): string
     {
-        return $this->str->slug($value);
+        return Str::slug($value);
     }
 }

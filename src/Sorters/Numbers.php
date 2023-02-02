@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
+use DragonCode\SizeSorter\Services\Resolver;
+
 class Numbers extends Base
 {
-    public function callback(string $column, int $arrow = 1): callable
+    public static function callback(string $column, int $arrow = 1): callable
     {
-        return function (mixed $a, mixed $b) use ($column, $arrow) {
-            $a = $this->number($a, $column);
-            $b = $this->number($b, $column);
+        return static function (mixed $a, mixed $b) use ($column, $arrow) {
+            $a = static::number($a, $column);
+            $b = static::number($b, $column);
 
             if ($a[0] === $b[0]) {
                 if (isset($a[1], $b[1])) {
@@ -26,8 +28,8 @@ class Numbers extends Base
         };
     }
 
-    protected function number(mixed $value, string $column): array
+    protected static function number(mixed $value, string $column): array
     {
-        return $this->resolver->number($value, $column);
+        return Resolver::number($value, $column);
     }
 }

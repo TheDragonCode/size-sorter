@@ -6,5 +6,5 @@ namespace DragonCode\SizeSorter\Contracts;
 
 interface Sorter
 {
-    public function callback(string $column, int $arrow = 1): callable;
+    public static function callback(string $column, int $arrow = 1): callable;
 }

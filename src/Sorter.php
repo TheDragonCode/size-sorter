@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter;
 
-use DragonCode\SizeSorter\Enum\Groups;
+use DragonCode\SizeSorter\Enum\Group;
 use DragonCode\SizeSorter\Services\Collection;
 use DragonCode\SizeSorter\Services\GroupsDetector;
 use DragonCode\SizeSorter\Services\Resolver;
@@ -14,103 +14,95 @@ use Illuminate\Support\Collection as IlluminateCollection;
 
 class Sorter
 {
-    public function __construct(
-        protected GroupsDetector $groupsDetector = new GroupsDetector(),
-        protected Collection $collection = new Collection(),
-        protected Resolver $resolver = new Resolver(),
-        protected SorterService $sorter = new SorterService()
-    ) {
-    }
-
     public static function sort(IlluminateCollection $items, string $column = 'value'): IlluminateCollection
     {
-        return (new static())->handle($items, $column);
+        return static::handle($items, $column);
     }
 
-    protected function handle(IlluminateCollection $items, string $column = 'value'): IlluminateCollection
+    protected static function handle(IlluminateCollection $items, string $column = 'value'): IlluminateCollection
     {
-        return $this->flatten(
-            $this->sorting($items, $column)
+        return static::flatten(
+            static::sorting($items, $column)
         );
     }
 
-    protected function sorting(IlluminateCollection $items, string $column = 'value'): IlluminateCollection
+    public static function sorting(IlluminateCollection $items, string $column = 'value'): IlluminateCollection
     {
         return $items
-            ->groupBy(fn (mixed $size) => $this->detectGroup(
-                $this->resolveValue($size, $column)->toString()
+            ->groupBy(static fn (mixed $size) => static::detectGroup(
+                static::resolveValue($size, $column)->toString()
             ), true)
             ->sortKeys()
-            ->map(fn (IlluminateCollection $items, int $group) => $this->sortByGroup($items, $group, $column));
+            ->map(static fn (IlluminateCollection $items, int $group) => static::sortByGroup($items, $group, $column));
     }
 
-    protected function sortByGroup(IlluminateCollection $items, int $group, string $column): IlluminateCollection
+    public static function sortByGroup(IlluminateCollection $items, int $group, string $column): IlluminateCollection
     {
         return match ($group) {
-            Groups::GROUP_1() => $this->sortChars($items, $column),
-            Groups::GROUP_2() => $this->sortNumbers($items, $column),
-            default           => $this->sortArrows($items, $column)
+            Group::GROUP_1() => static::sortChars($items, $column),
+            Group::GROUP_2() => static::sortNumbers($items, $column),
+            default          => static::sortArrows($items, $column)
         };
     }
 
-    protected function sortChars(IlluminateCollection $values, string $column): IlluminateCollection
+    public static function sortChars(IlluminateCollection $values, string $column): IlluminateCollection
     {
         return $values->groupBy(
-            fn (mixed $size) => $this->resolveValue($size, $column)
+            static fn (mixed $size) => static::resolveValue($size, $column)
                 ->match('/(s|m|l)/')
                 ->toString(),
             true
         )
             ->sortKeysDesc()
             ->map(
-                fn (IlluminateCollection $values, string $group) => $group === 's'
-                ? $this->sortSmallSizes($values, $column)
-                : $this->sortArrows($values, $column)
+                static fn (IlluminateCollection $values, string $group) => $group === 's'
+                    ? static::sortSmallSizes($values, $column)
+                    : static::sortArrows($values, $column)
             );
     }
 
-    protected function sortSmallSizes(IlluminateCollection $values, string $column): IlluminateCollection
+    public static function sortSmallSizes(IlluminateCollection $values, string $column): IlluminateCollection
     {
         return $values->sort(
-            $this->sorter->byArrow($column, -1)
+            SorterService::byArrow($column, -1)
         )
-            ->groupBy(fn (mixed $size) => $this->resolveValue($size, $column)->toString(), true)
-            ->map(fn (IlluminateCollection $values) => $this->sortSpecialChars($values, $column));
+            ->groupBy(static fn (mixed $size) => static::resolveValue($size, $column)->toString(), true)
+            ->map(static fn (IlluminateCollection $values) => static::sortSpecialChars($values, $column));
     }
 
-    protected function sortSpecialChars(IlluminateCollection $values, string $column): IlluminateCollection
+    public static function sortSpecialChars(IlluminateCollection $values, string $column): IlluminateCollection
     {
         return $values->sort(
-            $this->sorter->byChars($column)
+            SorterService::byChars($column)
         );
     }
 
-    protected function sortArrows(IlluminateCollection $values, string $column): IlluminateCollection
+    public static function sortArrows(IlluminateCollection $values, string $column): IlluminateCollection
     {
         return $values->sort(
-            $this->sorter->byArrow($column)
+            SorterService::byArrow($column)
         );
     }
 
-    protected function sortNumbers(IlluminateCollection $items, string $column): IlluminateCollection
+    public static function sortNumbers(IlluminateCollection $items, string $column): IlluminateCollection
     {
         return $items->sort(
-            $this->sorter->byNumbers($column)
+            SorterService::byNumbers($column)
         );
     }
 
-    protected function detectGroup(string $value): int
+    public static function detectGroup(string $value): int
     {
-        return $this->groupsDetector->detect($value);
+        return GroupsDetector::detect($value);
     }
 
-    protected function flatten(IlluminateCollection $items): IlluminateCollection
+    public static function flatten(IlluminateCollection $items): IlluminateCollection
     {
-        return $this->collection->flatten($items);
+        return Collection::flatten($items);
     }
 
-    protected function resolveValue(mixed $value, string $column): Stringable
+    public static function resolveValue(mixed $value, string $column): Stringable
     {
-        return $this->resolver->value($value, $column);
+        return Resolver::value($value, $column);
     }
 }

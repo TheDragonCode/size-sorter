@@ -6,5 +6,5 @@ namespace DragonCode\SizeSorter\Detectors;
 
 class Group1 extends Base
 {
-    protected array|string $pattern = '/^(x*[sml])$/';
+    protected static array|string $pattern = '/^(x*[sml])$/';
 }
