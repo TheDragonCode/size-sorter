@@ -15,7 +15,7 @@ class Resolver
 
     public function key(mixed $value, string $column): mixed
     {
-        return $value->$column ?? $value[$column] ?? $value;
+        return $value->{$column} ?? $value[$column] ?? $value;
     }
 
     public function value(mixed $value, string $column): Stringable

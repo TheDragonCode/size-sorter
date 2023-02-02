@@ -16,9 +16,9 @@ class Sorter
 {
     public function __construct(
         protected GroupsDetector $groupsDetector = new GroupsDetector(),
-        protected Collection     $collection = new Collection(),
-        protected Resolver       $resolver = new Resolver(),
-        protected SorterService  $sorter = new SorterService()
+        protected Collection $collection = new Collection(),
+        protected Resolver $resolver = new Resolver(),
+        protected SorterService $sorter = new SorterService()
     ) {
     }
 
@@ -62,7 +62,8 @@ class Sorter
             true
         )
             ->sortKeysDesc()
-            ->map(fn (IlluminateCollection $values, string $group) => $group === 's'
+            ->map(
+                fn (IlluminateCollection $values, string $group) => $group === 's'
                 ? $this->sortSmallSizes($values, $column)
                 : $this->sortArrows($values, $column)
             );

@@ -13,7 +13,7 @@ abstract class Base implements GroupMatcher
     protected array|string $pattern;
 
     public function __construct(
-        protected Str      $str = new Str(),
+        protected Str $str = new Str(),
         protected Resolver $resolver = new Resolver()
     ) {
     }

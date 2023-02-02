@@ -12,7 +12,7 @@ abstract class Base implements Sorter
 {
     public function __construct(
         protected Resolver $resolver = new Resolver(),
-        protected Str      $str = new Str()
+        protected Str $str = new Str()
     ) {
     }
 
