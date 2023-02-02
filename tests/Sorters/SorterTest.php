@@ -7,7 +7,7 @@ namespace Tests\Sorters;
 use DragonCode\SizeSorter\Sorter;
 use Tests\TestCase;
 
-class StaticallyTest extends TestCase
+class SorterTest extends TestCase
 {
     private array $values = [
         100 => 'XXL',
