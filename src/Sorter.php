@@ -5,27 +5,13 @@ declare(strict_types=1);
 namespace DragonCode\SizeSorter;
 
 use Closure;
+use DragonCode\SizeSorter\Enum\Groups;
 use DragonCode\Support\Facades\Helpers\Str;
 use DragonCode\Support\Helpers\Ables\Stringable;
 use Illuminate\Support\Collection;
 
 class Sorter
 {
-    /** @var int Letter clothing size */
-    private const SORT_GROUP_1 = 1;
-
-    /** @var int Numerical size of clothes and shoes */
-    private const SORT_GROUP_2 = 2;
-
-    /** @var int Bra size */
-    private const SORT_GROUP_3 = 3;
-
-    /** @var int Overall dimensions of items */
-    private const SORT_GROUP_4 = 4;
-
-    /** @var int Other values */
-    private const SORT_GROUP_5 = 5;
-
     public static function sort(Collection $items, string $column = 'value'): Collection
     {
         return self::flatten(
@@ -46,9 +32,9 @@ class Sorter
     protected static function sortGroup(Collection $items, int $group, string $column): Collection
     {
         return match ($group) {
-            self::SORT_GROUP_1 => self::sortChars($items, $column),
-            self::SORT_GROUP_2 => self::sortNumbers($items, $column),
-            default            => self::sortDefault($items, $column)
+            Groups::GROUP_1() => self::sortChars($items, $column),
+            Groups::GROUP_2() => self::sortNumbers($items, $column),
+            default           => self::sortDefault($items, $column)
         };
     }
 
@@ -136,11 +122,11 @@ class Sorter
     protected static function detectGroup(string $value): int
     {
         return match (true) {
-            self::match($value, '/^(x*[sml])$/')                                          => self::SORT_GROUP_1,
-            self::match(self::slug($value), '/^(\d+-?\d*)$/')                             => self::SORT_GROUP_2,
-            self::match(self::slug($value), '/^(\d+[a-f]{1,2})$/')                        => self::SORT_GROUP_3,
-            self::match(self::clean($value), ['/^([\d\-hx\*]*0s0m)$/', '/^(\d+[a-f])$/']) => self::SORT_GROUP_4,
-            default                                                                       => self::SORT_GROUP_5
+            self::match($value, '/^(x*[sml])$/')                                          => Groups::GROUP_1(),
+            self::match(self::slug($value), '/^(\d+-?\d*)$/')                             => Groups::GROUP_2(),
+            self::match(self::slug($value), '/^(\d+[a-f]{1,2})$/')                        => Groups::GROUP_3(),
+            self::match(self::clean($value), ['/^([\d\-hx\*]*0s0m)$/', '/^(\d+[a-f])$/']) => Groups::GROUP_4(),
+            default                                                                       => Groups::GROUP_5()
         };
     }
 

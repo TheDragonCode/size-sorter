@@ -42,6 +42,7 @@
     ],
     "require": {
         "php": "^8.1",
+        "archtechx/enums": "^0.3.1",
         "dragon-code/support": "^6.9",
         "illuminate/collections": "^8.75 || ^9.0 || ^10.0"
     },
