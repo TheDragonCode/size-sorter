@@ -18,11 +18,11 @@ To get the latest version of `Size Sorter`, simply require the project using [Co
 composer require dragon-code/size-sorter
 ```
 
-Or manually update `require-dev` block of `composer.json` and run composer update.
+Or manually update `require` block of `composer.json` and run composer update.
 
 ```json
 {
-    "require-dev": {
+    "require": {
         "dragon-code/size-sorter": "^1.0"
     }
 }
