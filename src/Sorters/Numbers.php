@@ -22,6 +22,8 @@ class Numbers extends Base
 
                     return $a[1] < $b[1] ? -1 * $arrow : $arrow;
                 }
+                
+                return 0;
             }
 
             return $a[0] < $b[0] ? -1 * $arrow : $arrow;
