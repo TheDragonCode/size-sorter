@@ -29,4 +29,11 @@ enum Groups: int
     case GROUP_4 = 4;
     /** Other values */
     case GROUP_5 = 5;
+
+    public static function exists(Groups|string|int $group): bool
+    {
+        $value = $group->value ?? (int) $group;
+
+        return in_array($value, self::values(), true);
+    }
 }
