@@ -86,7 +86,51 @@ $items = Size::query()->get();
 return Sorter::sort($items, 'title');
 ```
 
-> You can see more examples in the [test file](tests/Sorters/StaticallyTest.php).
+> You can see more examples in the [test file](tests/Sorters/SorterTest.php).
+
+### Groups Order
+
+By default, sizes are sorted by the following logical blocks:
+
+1. Letter clothing size (XXS, XS, M, L, etc.)
+2. Numerical size of clothes and shoes (9, 10, 44-46, 48, etc.)
+3. Bra size (70B, 75A, 80C, etc...)
+4. Overall dimensions of items (40x38x19 sm, etc.)
+5. Other values
+
+But you can change the order by specifying identifiers as the third parameter:
+
+```php
+use DragonCode\SizeSorter\Enum\Group;
+use DragonCode\SizeSorter\Sorter;
+
+return Sorter::sort($items, groupsOrder: [3, 5, 4, 2, 1]);
+// or
+return Sorter::sort($items, groupsOrder: [Group::GROUP_3, Group::GROUP_5, Group::GROUP_4, Group::GROUP_2, Group::GROUP_1]);
+```
+
+The final array will be formed in the specified order:
+
+```
+3 - 5 - 4 - 2 - 1
+```
+
+You can also specify some groups. For example:
+
+```php
+use DragonCode\SizeSorter\Enum\Group;
+use DragonCode\SizeSorter\Sorter;
+
+return Sorter::sort($items, groupsOrder: [3, 5]);
+// or
+return Sorter::sort($items, groupsOrder: [Group::GROUP_3, Group::GROUP_5]);
+```
+
+In this case, the first two logical groups will be sorted in the specified order, and the subsequent ones will be in ascending order:
+
+```
+3 - 5 - 1 - 2 - 4
+```
 
 ## License
 
