@@ -41,7 +41,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.0",
         "dragon-code/support": "^6.9",
         "illuminate/collections": "^7.30.6 || ^8.75 || ^9.0 || ^10.0"
     },
