@@ -22,7 +22,7 @@ class Numbers extends Base
 
                     return $a[1] < $b[1] ? -1 * $arrow : $arrow;
                 }
-                
+
                 return 0;
             }
 
