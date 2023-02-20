@@ -18,7 +18,7 @@ class Resolver
         }
 
         if (is_object($value) && $value instanceof \Stringable) {
-            return $value->toString();
+            return method_exists($value, 'toString') ? $value->toString() : (string) $value;
         }
 
         if (is_array($value) || $value instanceof ArrayAccess) {
