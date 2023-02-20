@@ -10,66 +10,6 @@ use Tests\TestCase;
 
 class FullGroupsOrderTest extends TestCase
 {
-    private array $values = [
-        100 => 'XXL',
-        101 => '26',
-        102 => '28',
-        103 => 'XL',
-        104 => 'ONE SIZE',
-        105 => 'XXS',
-        106 => '2',
-        107 => '54',
-        108 => 'XS',
-        109 => 'S',
-        110 => 'M',
-        111 => 'L',
-        112 => 'L/XL',
-        113 => 'XL/2XL',
-        114 => 'XS/S',
-        115 => 'M/L',
-        116 => '80B',
-        117 => '75C',
-        118 => '70B',
-        119 => '75A',
-        120 => '75B',
-        121 => '36',
-        122 => 'XXS-XS',
-        123 => '37',
-        124 => '38',
-        125 => '39',
-        126 => '40',
-        127 => 'S/M',
-        128 => '40х38х19 см',
-        129 => '70C',
-        130 => '44-46',
-        131 => 'some',
-        132 => '1',
-        133 => '30',
-        134 => '32',
-        135 => '34',
-        136 => '44/46',
-        137 => 'XXS/XS',
-        138 => 'XXS',
-        139 => '52-56',
-        140 => '102-104',
-        141 => '102-106',
-        142 => '102/106',
-        143 => '106',
-        145 => '110-112',
-        144 => '110-114',
-        146 => '90/94',
-        147 => '94-98',
-        148 => '98-102',
-        149 => '21',
-        150 => '3',
-        151 => '40х38х19 sm',
-        152 => '40х37х19 см',
-        153 => '40х37х20 см',
-        154 => '40х38х15 см',
-        155 => '41х38х15 см',
-        156 => '39х38х15 см',
-    ];
-
     private array $expected = [
         // 3
         118 => '70B',
@@ -94,14 +34,14 @@ class FullGroupsOrderTest extends TestCase
         106 => '2',
         150 => '3',
         149 => '21',
-        101 => '26',
-        102 => '28',
+        101 => 26,
+        102 => 28,
         133 => '30',
         134 => '32',
         135 => '34',
         121 => '36',
-        123 => '37',
-        124 => '38',
+        123 => 37,
+        124 => 38,
         125 => '39',
         126 => '40',
         130 => '44-46',
@@ -153,7 +93,7 @@ class FullGroupsOrderTest extends TestCase
 
     public function testObjects(): void
     {
-        $items = collect($this->values)->map(fn (string $value, int $key) => (object) [
+        $items = collect($this->values)->map(fn (mixed $value, int $key) => (object) [
             'id'     => $key,
             'value'  => $value,
             'active' => true,
@@ -167,7 +107,7 @@ class FullGroupsOrderTest extends TestCase
 
     public function testCustomColumn(): void
     {
-        $items = collect($this->values)->map(fn (string $value, int $key) => (object) [
+        $items = collect($this->values)->map(fn (mixed $value, int $key) => (object) [
             'id'   => $key,
             'some' => $value,
         ]);

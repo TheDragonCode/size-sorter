@@ -9,9 +9,9 @@ use DragonCode\Support\Helpers\Ables\Stringable;
 
 class Str
 {
-    public static function of(?string $value): Stringable
+    public static function of(mixed $value): Stringable
     {
-        return DS::of($value);
+        return DS::of((string) $value);
     }
 
     public static function pad(int $length, string $pad = 'x'): string
