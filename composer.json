@@ -45,11 +45,11 @@
         "php": "^8.1",
         "archtechx/enums": "^0.3.1",
         "dragon-code/support": "^6.9",
-        "illuminate/collections": "^8.75 || ^9.0 || ^10.0",
-        "illuminate/database": "^8.75 || ^9.0 || ^10.0"
+        "illuminate/collections": "^8.75 || ^9.0 || ^10.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.21",
+        "illuminate/database": "^8.75 || ^9.0 || ^10.0",
         "phpunit/phpunit": "^9.6",
         "symfony/var-dumper": "^5.3 || ^6.0"
     },
