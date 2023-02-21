@@ -30,13 +30,15 @@ Or manually update `require-dev` block of `composer.json` and run composer updat
 
 ## Compatibility
 
-> Note: This package can work outside the frameworks systems.
+> Note
+> 
+> This package can work outside the frameworks systems.
 
-| Service | Versions          |
-|:--------|:------------------|
-| PHP     | ^8.1              |
-| Laravel | ^8.0, ^9.0, ^10.0 |
-| Symfony | ^5.3, ^6.0        |
+| Compatibility | Versions          |
+|:--------------|:------------------|
+| PHP           | ^8.1              |
+| Laravel       | ^8.0, ^9.0, ^10.0 |
+| Symfony       | ^5.3, ^6.0        |
 
 ## Usage
 
