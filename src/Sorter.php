@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter;
 
+use ArrayAccess;
 use DragonCode\SizeSorter\Enum\Group;
 use DragonCode\SizeSorter\Services\Collection;
 use DragonCode\SizeSorter\Services\GroupsDetector;
@@ -15,10 +16,10 @@ use Illuminate\Support\Collection as IC;
 
 class Sorter
 {
-    public static function sort(IC $items, string $column = 'value', ?array $groupsOrder = null): IC
+    public static function sort(array|ArrayAccess|IC $items, string $column = 'value', ?array $groupsOrder = null): IC
     {
         return static::flatten(
-            static::handle($items, $column, Order::resolve($groupsOrder))
+            static::handle(collect($items), $column, Order::resolve($groupsOrder))
         );
     }
 
