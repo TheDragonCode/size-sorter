@@ -78,7 +78,7 @@ class SorterTest extends TestCase
     {
         $this->assertSame(
             $this->expected,
-            Sorter::sort(collect($this->values))->toArray()
+            Sorter::sort($this->values)->toArray()
         );
     }
 
@@ -121,6 +121,6 @@ class SorterTest extends TestCase
             840 => 'XL',
         ];
 
-        $this->assertSame($expected, Sorter::sort(collect($values))->toArray());
+        $this->assertSame($expected, Sorter::sort($values)->toArray());
     }
 }

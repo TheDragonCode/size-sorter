@@ -16,7 +16,7 @@ class TypesTest extends TestCase
 {
     public function testString(): void
     {
-        $items = collect([
+        $items = [
             104 => 'ONE SIZE',
             105 => 'XXS',
             106 => '2',
@@ -35,7 +35,7 @@ class TypesTest extends TestCase
             150 => '3',
             155 => '41х38х15 см',
             156 => '39х38х15 см',
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -69,7 +69,7 @@ class TypesTest extends TestCase
 
     public function testStringable(): void
     {
-        $items = collect([
+        $items = [
             104 => new Str('ONE SIZE'),
             105 => new Str('XXS'),
             106 => new Str('2'),
@@ -88,7 +88,7 @@ class TypesTest extends TestCase
             150 => new Str('3'),
             155 => new Str('41х38х15 см'),
             156 => new Str('39х38х15 см'),
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -122,13 +122,13 @@ class TypesTest extends TestCase
 
     public function testInteger(): void
     {
-        $items = collect([
+        $items = [
             106 => 2,
             132 => 1,
             133 => 30,
             149 => 21,
             150 => 3,
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -145,13 +145,13 @@ class TypesTest extends TestCase
 
     public function testFloat(): void
     {
-        $items = collect([
+        $items = [
             106 => 2.2,
             132 => 1.3,
             133 => 30.5,
             149 => 21.8,
             150 => 3.0,
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -168,7 +168,7 @@ class TypesTest extends TestCase
 
     public function testEnumString(): void
     {
-        $items = collect([
+        $items = [
             104 => StringValue::VALUE_ONE_SIZE,
             105 => StringValue::VALUE_XXS,
             106 => StringValue::VALUE_2,
@@ -186,7 +186,7 @@ class TypesTest extends TestCase
             150 => StringValue::VALUE_3,
             155 => StringValue::VALUE_41_38_15,
             156 => StringValue::VALUE_39_38_15,
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -219,13 +219,13 @@ class TypesTest extends TestCase
 
     public function testEnumInteger(): void
     {
-        $items = collect([
+        $items = [
             106 => IntegerValue::VALUE_2,
             132 => IntegerValue::VALUE_1,
             133 => IntegerValue::VALUE_30,
             149 => IntegerValue::VALUE_21,
             150 => IntegerValue::VALUE_3,
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -242,7 +242,7 @@ class TypesTest extends TestCase
 
     public function testNestedArray(): void
     {
-        $items = collect([
+        $items = [
             104 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'ONE SIZE']]],
             105 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'XXS']]],
             106 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => '2']]],
@@ -261,7 +261,7 @@ class TypesTest extends TestCase
             150 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => '3']]],
             155 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => '41х38х15 см']]],
             156 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => '39х38х15 см']]],
-        ]);
+        ];
 
         $this->assertSame(
             [
@@ -345,6 +345,59 @@ class TypesTest extends TestCase
                 131 => 'some',
             ],
             Sorter::sort($items)->pluck('value', 'id')->toArray()
+        );
+    }
+
+    public function testCollection(): void
+    {
+        $items = collect([
+            104 => 'ONE SIZE',
+            105 => 'XXS',
+            106 => '2',
+            110 => 'M',
+            113 => 'XL/2XL',
+            116 => '80B',
+            118 => '70B',
+            130 => '44-46',
+            131 => 'some',
+            132 => '1',
+            133 => '30',
+            136 => '44/46',
+            137 => 'XXS/XS',
+            139 => '52-56',
+            149 => '21',
+            150 => '3',
+            155 => '41х38х15 см',
+            156 => '39х38х15 см',
+        ]);
+
+        $this->assertSame(
+            [
+                // 1
+                105 => 'XXS',
+                137 => 'XXS/XS',
+                110 => 'M',
+                113 => 'XL/2XL',
+                // 2
+                132 => '1',
+                106 => '2',
+                150 => '3',
+                149 => '21',
+                133 => '30',
+                130 => '44-46',
+                136 => '44/46',
+                139 => '52-56',
+                // 3
+                118 => '70B',
+                116 => '80B',
+                // 4
+                156 => '39х38х15 см',
+                155 => '41х38х15 см',
+                // 5
+                104 => 'ONE SIZE',
+                131 => 'some',
+            ],
+            Sorter::sort($items)->toArray()
         );
     }
 }

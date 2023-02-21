@@ -84,7 +84,7 @@ class PartialGroupsOrderTest extends TestCase
     {
         $this->assertSame(
             $this->expected,
-            Sorter::sort(collect($this->values), groupsOrder: $this->groupsOrder)->toArray()
+            Sorter::sort($this->values, groupsOrder: $this->groupsOrder)->toArray()
         );
     }
 
