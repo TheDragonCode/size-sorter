@@ -16,9 +16,9 @@ class Resolver
     {
         return match (true) {
             $value instanceof BackedEnum     => self::fromEnum($value),
-            $value instanceof BaseStringable => self::fromStringable($value),
             $value instanceof ArrayAccess,
             is_array($value)                 => self::fromArray($value, $column),
+            $value instanceof BaseStringable => self::fromStringable($value),
             default                          => $value->{$column} ?? $value
         };
     }

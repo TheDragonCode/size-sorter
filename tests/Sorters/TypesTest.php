@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Tests\Sorters;
 
 use DragonCode\SizeSorter\Sorter;
+use Illuminate\Database\Eloquent\Collection;
 use Tests\Fixtures\Enums\IntegerValue;
 use Tests\Fixtures\Enums\StringValue;
 use Tests\Fixtures\Helpers\Str;
+use Tests\Fixtures\Laravel\Eloquent\Model;
 use Tests\TestCase;
 
 class TypesTest extends TestCase
@@ -288,6 +290,61 @@ class TypesTest extends TestCase
                 131 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'some']]],
             ],
             Sorter::sort($items, 'bar.some.nested')->toArray()
+        );
+    }
+
+    public function testLaravelModels(): void
+    {
+        $items = Collection::make([
+            104 => 'ONE SIZE',
+            105 => 'XXS',
+            106 => '2',
+            110 => 'M',
+            113 => 'XL/2XL',
+            116 => '80B',
+            118 => '70B',
+            130 => '44-46',
+            131 => 'some',
+            132 => '1',
+            133 => '30',
+            136 => '44/46',
+            137 => 'XXS/XS',
+            139 => '52-56',
+            149 => '21',
+            150 => '3',
+            155 => '41х38х15 см',
+            156 => '39х38х15 см',
+        ])->map(function (string $value, int $id) {
+            return new Model(compact('id', 'value'));
+        });
+
+        $this->assertSame(
+            [
+                // 1
+                105 => 'XXS',
+                137 => 'XXS/XS',
+                110 => 'M',
+                113 => 'XL/2XL',
+                // 2
+                132 => '1',
+                106 => '2',
+                150 => '3',
+                149 => '21',
+                133 => '30',
+                130 => '44-46',
+                136 => '44/46',
+                139 => '52-56',
+                // 3
+                118 => '70B',
+                116 => '80B',
+                // 4
+                156 => '39х38х15 см',
+                155 => '41х38х15 см',
+                // 5
+                104 => 'ONE SIZE',
+                131 => 'some',
+            ],
+            Sorter::sort($items)->pluck('value', 'id')->toArray()
         );
     }
 }
