@@ -1,4 +1,4 @@
-# Size Sorter
+# Product Size Sorter
 
 ![The Dragon Code Product size sorting](https://preview.dragon-code.pro/TheDragonCode/Product%20size%20sorting.svg?brand=php)
 
@@ -12,7 +12,7 @@
 
 ## Installation
 
-To get the latest version of `Size Sorter`, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Product Size Sorter`, simply require the project using [Composer](https://getcomposer.org):
 
 ```bash
 composer require dragon-code/size-sorter
