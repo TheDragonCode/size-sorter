@@ -1,6 +1,6 @@
 # Size Sorter
 
-![the dragon code size sorter](https://preview.dragon-code.pro/the-dragon-code/size-sorter.svg?brand=php)
+![The Dragon Code Product size sorting](https://preview.dragon-code.pro/TheDragonCode/Product%20size%20sorting.svg?brand=php)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Unstable Version][badge_unstable]][link_packagist]
