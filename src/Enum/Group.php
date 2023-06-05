@@ -17,16 +17,21 @@ use ArchTech\Enums\Values;
 enum Group: int
 {
     use InvokableCases;
+
     use Values;
 
     // Letter clothing size
     case GROUP_1 = 1;
+
     // Numerical size of clothes and shoes
     case GROUP_2 = 2;
+
     // Bra size
     case GROUP_3 = 3;
+
     // Overall dimensions of items
     case GROUP_4 = 4;
+
     // Other values
     case GROUP_5 = 5;
 
