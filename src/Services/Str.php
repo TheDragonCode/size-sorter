@@ -19,7 +19,7 @@ class Str
         return str_pad('', $length, $pad);
     }
 
-    public static function replace(string $value, array|string $search, array|string|int $replace): string
+    public static function replace(string $value, array|string $search, array|int|string $replace): string
     {
         return DS::replace($value, $search, $replace);
     }

@@ -15,7 +15,7 @@ class Resolver
     public static function key(mixed $value, string $column): mixed
     {
         return match (true) {
-            $value instanceof BackedEnum     => self::fromEnum($value),
+            $value instanceof BackedEnum => self::fromEnum($value),
             $value instanceof ArrayAccess,
             is_array($value)                 => self::fromArray($value, $column),
             $value instanceof BaseStringable => self::fromStringable($value),

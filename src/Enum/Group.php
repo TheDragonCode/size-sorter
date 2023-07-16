@@ -17,7 +17,6 @@ use ArchTech\Enums\Values;
 enum Group: int
 {
     use InvokableCases;
-
     use Values;
 
     // Letter clothing size
@@ -35,7 +34,7 @@ enum Group: int
     // Other values
     case GROUP_5 = 5;
 
-    public static function exists(Group|string|int $group): bool
+    public static function exists(Group|int|string $group): bool
     {
         $value = $group->value ?? (int) $group;
 

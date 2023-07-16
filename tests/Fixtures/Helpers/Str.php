@@ -10,8 +10,7 @@ class Str implements Stringable
 {
     public function __construct(
         protected mixed $value
-    ) {
-    }
+    ) {}
 
     public function __toString(): string
     {
