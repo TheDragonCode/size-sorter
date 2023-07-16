@@ -16,7 +16,8 @@
     "authors": [
         {
             "name": "Andrey Helldar",
-            "email": "helldar@dragon-code.pro"
+            "email": "helldar@dragon-code.pro",
+            "homepage": "https://github.com/andrey-helldar"
         }
     ],
     "support": {
@@ -39,6 +40,10 @@
         {
             "type": "yoomoney",
             "url": "https://yoomoney.ru/to/410012608840929"
+        },
+        {
+            "type": "donationalerts",
+            "url": "https://www.donationalerts.com/r/dragon_code"
         }
     ],
     "require": {
