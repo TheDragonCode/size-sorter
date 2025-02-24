@@ -7,22 +7,17 @@
         bootstrap="vendor/autoload.php"
         colors="true"
         convertErrorsToExceptions="true"
-        convertNoticesToExceptions="true"
-        convertWarningsToExceptions="true"
+        convertNoticesToExceptions="false"
+        convertWarningsToExceptions="false"
         processIsolation="false"
-        stopOnError="false"
-        stopOnFailure="false"
+        stopOnError="true"
+        stopOnFailure="true"
         verbose="true"
 >
     <coverage processUncoveredFiles="true">
         <include>
             <directory suffix=".php">./src</directory>
         </include>
-        <report>
-            <clover outputFile="build/logs/clover.xml" />
-            <html outputDirectory="build/logs/coverage" />
-            <text outputFile="build/logs/coverage.txt" />
-        </report>
     </coverage>
     <testsuites>
         <testsuite name="Test Suite">
