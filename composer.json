@@ -44,7 +44,7 @@
         "dragon-code/codestyler": "^6.0",
         "fakerphp/faker": "^1.21",
         "illuminate/database": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
-        "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0 || ^12.0",
+        "phpunit/phpunit": "^12.0",
         "symfony/var-dumper": "^5.3 || ^6.0 || ^7.0"
     },
     "minimum-stability": "stable",
