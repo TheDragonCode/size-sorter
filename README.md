@@ -107,7 +107,13 @@ use DragonCode\SizeSorter\Sorter;
 
 return Sorter::sort($items, groupsOrder: [3, 5, 4, 2, 1]);
 // or
-return Sorter::sort($items, groupsOrder: [Group::GROUP_3, Group::GROUP_5, Group::GROUP_4, Group::GROUP_2, Group::GROUP_1]);
+return Sorter::sort($items, groupsOrder: [
+    Group::GROUP_3,
+    Group::GROUP_5,
+    Group::GROUP_4,
+    Group::GROUP_2,
+    Group::GROUP_1,
+]);
 ```
 
 The final array will be formed in the specified order:
