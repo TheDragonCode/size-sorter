@@ -39,7 +39,9 @@ jobs:
                     coverage: none
 
             -   name: Install dependencies
-                run: composer require --dev laravel/framework:^${{ matrix.laravel }}
+                run: composer require \
+                    illuminate/collections:^${{ matrix.laravel }} \
+                    illuminate/database:^${{ matrix.laravel }}
 
             -   name: Execute tests
                 run: composer test

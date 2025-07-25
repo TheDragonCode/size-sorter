@@ -1,27 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        backupGlobals="false"
-        backupStaticAttributes="false"
-        bootstrap="vendor/autoload.php"
-        colors="true"
-        convertErrorsToExceptions="true"
-        convertNoticesToExceptions="false"
-        convertWarningsToExceptions="false"
-        processIsolation="false"
-        stopOnError="true"
-        stopOnFailure="true"
-        verbose="true"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         stopOnError="true"
+         stopOnFailure="true"
+         cacheResult="false"
 >
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
     <testsuites>
         <testsuite name="Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
+    <source>
+        <include>
+            <directory>./src</directory>
+        </include>
+    </source>
 </phpunit>
