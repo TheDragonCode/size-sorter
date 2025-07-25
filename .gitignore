@@ -18,3 +18,4 @@ vendor/
 *.orig
 
 composer.lock
+playground.php
