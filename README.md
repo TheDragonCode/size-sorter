@@ -33,11 +33,11 @@ Or manually update `require` block of `composer.json` and run composer update.
 > 
 > This package can work outside the frameworks systems.
 
-| Compatibility | Versions          |
-|:--------------|:------------------|
-| PHP           | ^8.1              |
-| Laravel       | ^8.0, ^9.0, ^10.0 |
-| Symfony       | ^5.3, ^6.0        |
+| Compatibility | Versions |
+|:--------------|:---------|
+| PHP           | 8.1+     |
+| Laravel       | 8.0+     |
+| Symfony       | 5.3+     |
 
 ## Usage
 
