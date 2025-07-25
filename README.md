@@ -22,7 +22,7 @@ Or manually update `require` block of `composer.json` and run composer update.
 ```json
 {
     "require": {
-        "dragon-code/size-sorter": "^1.0"
+        "dragon-code/size-sorter": "^2.0"
     }
 }
 ```
@@ -35,7 +35,7 @@ Or manually update `require` block of `composer.json` and run composer update.
 
 | Compatibility | Versions |
 |:--------------|:---------|
-| PHP           | 8.1+     |
+| PHP           | 8.2+     |
 | Laravel       | 8.0+     |
 | Symfony       | 5.3+     |
 
