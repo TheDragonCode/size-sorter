@@ -35,15 +35,15 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "archtechx/enums": "^0.3.1 || ^1.0",
         "dragon-code/support": "^6.9",
-        "illuminate/collections": "^8.75 || ^9.0 || ^10.0 || ^11.0 || ^12.0"
+        "illuminate/collections": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0"
     },
     "require-dev": {
         "dragon-code/codestyler": "^6.0",
         "fakerphp/faker": "^1.21",
-        "illuminate/database": "^8.75 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
+        "illuminate/database": "^8.0 || ^9.0 || ^10.0 || ^11.0 || ^12.0",
         "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0 || ^12.0",
         "symfony/var-dumper": "^5.3 || ^6.0 || ^7.0"
     },
