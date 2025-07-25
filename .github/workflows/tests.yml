@@ -42,4 +42,4 @@ jobs:
                 run: composer require --dev laravel/framework:^${{ matrix.laravel }}
 
             -   name: Execute tests
-                run: sudo vendor/bin/phpunit
+                run: composer test

@@ -75,6 +75,7 @@
             "cp vendor/dragon-code/codestyler/.editorconfig .editorconfig",
             "composer normalize"
         ],
-        "style": "vendor/bin/pint --parallel"
+        "style": "vendor/bin/pint --parallel",
+        "test": "vendor/bin/phpunit"
     }
 }
