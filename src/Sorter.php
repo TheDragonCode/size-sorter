@@ -31,7 +31,6 @@ class Sorter
 
     /**
      * @param  Group[]|null  $order
-     *
      * @return $this
      */
     public function groupsOrder(?array $order): static

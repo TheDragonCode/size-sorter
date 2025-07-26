@@ -10,12 +10,13 @@ use DragonCode\Support\Helpers\Ables\Stringable;
 use Illuminate\Support\Collection as IC;
 
 class MainLogic
-{ public static function sort(iterable $items, string $column = 'value', ?array $groupsOrder = null): IC
 {
-    return static::flatten(
-        static::handle(collect($items), $column, Order::resolve($groupsOrder))
-    );
-}
+    public static function sort(iterable $items, string $column = 'value', ?array $groupsOrder = null): IC
+    {
+        return static::flatten(
+            static::handle(collect($items), $column, Order::resolve($groupsOrder))
+        );
+    }
 
     protected static function handle(IC $items, string $column, array $groupsOrder): IC
     {
