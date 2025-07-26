@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Detectors;
 
-use DragonCode\SizeSorter\Services\Resolver;
-use DragonCode\SizeSorter\Services\Str;
+use DragonCode\SizeSorter\Normalizers\SizeNormalizer;
+use Illuminate\Support\Str;
 
-class Group4 extends Base
+class OverallDimensionsDetector extends BaseDetector
 {
     protected static array|string $pattern = [
         '/^([\d\-hx\*]*0s0m)$/',
@@ -22,8 +22,7 @@ class Group4 extends Base
             ->replace('\\', '/')
             ->explode('/')
             ->map(static fn (string $value) => static::compact($value))
-            ->implode('/')
-            ->toString();
+            ->implode('/');
     }
 
     protected static function compact(string $value): string
@@ -31,8 +30,7 @@ class Group4 extends Base
         return Str::of($value)
             ->slug()
             ->explode('-')
-            ->map(static fn (string $value) => Resolver::size($value))
-            ->implode('-')
-            ->toString();
+            ->map(static fn (string $value) => SizeNormalizer::get($value))
+            ->implode('-');
     }
 }

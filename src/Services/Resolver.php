@@ -31,28 +31,6 @@ class Resolver
             ->lower();
     }
 
-    public static function number(mixed $value, string $column): array
-    {
-        return static::prepare($value, $column)
-            ->replace(['\\', '-'], '/')
-            ->explode('/')
-            ->map(static fn (mixed $val) => (int) $val)
-            ->toArray();
-    }
-
-    public static function size(string $value): string
-    {
-        if (Str::match($value, '/(\d+x)/')) {
-            return Str::replace('x', '', $value);
-        }
-
-        if ($count = Str::count($value)) {
-            return Str::replace($value, Str::pad($count), $count);
-        }
-
-        return Str::replace($value, ['s', 'm', 'l'], ['0s', '0m', '0l']);
-    }
-
     public static function callback(callable $callback, mixed ...$parameters): mixed
     {
         return $callback(...$parameters);

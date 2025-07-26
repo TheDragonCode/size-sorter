@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
-use DragonCode\SizeSorter\Services\Resolver;
+use DragonCode\SizeSorter\Normalizers\NumberNormalizer;
 
 class NumberSorter extends BaseSorter
 {
@@ -14,24 +14,24 @@ class NumberSorter extends BaseSorter
             $a = static::number($a, $column);
             $b = static::number($b, $column);
 
-            if ($a[0] === $b[0]) {
-                if (isset($a[1], $b[1])) {
-                    if ($a[1] === $b[1]) {
-                        return 0;
-                    }
-
-                    return $a[1] < $b[1] ? -1 * $arrow : $arrow;
-                }
-
-                return 0;
+            if ($a[0] !== $b[0]) {
+                return $a[0] < $b[0] ? -1 * $arrow : $arrow;
             }
 
-            return $a[0] < $b[0] ? -1 * $arrow : $arrow;
+            if (isset($a[1], $b[1])) {
+                if ($a[1] === $b[1]) {
+                    return 0;
+                }
+
+                return $a[1] < $b[1] ? -1 * $arrow : $arrow;
+            }
+
+            return 0;
         };
     }
 
     protected static function number(mixed $value, string $column): array
     {
-        return Resolver::number($value, $column);
+        return NumberNormalizer::get($value, $column);
     }
 }

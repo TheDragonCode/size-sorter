@@ -6,7 +6,7 @@ namespace DragonCode\SizeSorter\Detectors;
 
 use DragonCode\SizeSorter\Services\Str;
 
-class Group2 extends Base
+class ClothesAndShoesDetector extends BaseDetector
 {
     protected static array|string $pattern = '/^(\d+-?\d*)$/';
 

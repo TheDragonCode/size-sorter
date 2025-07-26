@@ -7,6 +7,7 @@ namespace DragonCode\SizeSorter\Services;
 use DragonCode\Support\Facades\Helpers\Str as DS;
 use DragonCode\Support\Helpers\Ables\Stringable;
 
+/** @deprecated */
 class Str
 {
     public static function of(mixed $value): Stringable

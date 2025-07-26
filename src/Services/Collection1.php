@@ -6,7 +6,8 @@ namespace DragonCode\SizeSorter\Services;
 
 use Illuminate\Support\Collection as IC;
 
-class Collection
+/** @deprecated */
+class Collection1
 {
     public static function make(array $items = []): IC
     {
