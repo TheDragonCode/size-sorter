@@ -2,13 +2,9 @@
 
 declare(strict_types=1);
 
-namespace DragonCode\SizeSorter\Services;
+namespace DragonCode\SizeSorter\Sorters;
 
-use DragonCode\SizeSorter\Sorters\Arrow;
-use DragonCode\SizeSorter\Sorters\Chars;
-use DragonCode\SizeSorter\Sorters\Numbers;
-
-class Sorter
+class SorterManager
 {
     public static function byArrow(string $column, int $arrow = 1): callable
     {

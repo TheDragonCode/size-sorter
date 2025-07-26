@@ -4,40 +4,27 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Enum;
 
-use ArchTech\Enums\InvokableCases;
-use ArchTech\Enums\Values;
+use function array_column;
 
-/**
- * @method static int GROUP_1()
- * @method static int GROUP_2()
- * @method static int GROUP_3()
- * @method static int GROUP_4()
- * @method static int GROUP_5()
- */
 enum Group: int
 {
-    use InvokableCases;
-    use Values;
-
-    // Letter clothing size
-    case GROUP_1 = 1;
-
-    // Numerical size of clothes and shoes
-    case GROUP_2 = 2;
-
-    // Bra size
-    case GROUP_3 = 3;
-
-    // Overall dimensions of items
-    case GROUP_4 = 4;
-
-    // Other values
-    case GROUP_5 = 5;
+    case LetterClothingSize = 1;
+    case ClothesAndShoes    = 2;
+    case BraSize            = 3;
+    case OverallDimensions  = 4;
+    case OtherSizes         = 5;
 
     public static function exists(Group|int|string $group): bool
     {
-        $value = $group->value ?? (int) $group;
+        if ($group instanceof self) {
+            return true;
+        }
 
-        return in_array($value, self::values(), true);
+        return self::tryFrom((int) $group) !== null;
+    }
+
+    public static function values(): array
+    {
+        return array_column(self::cases(), 'value');
     }
 }
