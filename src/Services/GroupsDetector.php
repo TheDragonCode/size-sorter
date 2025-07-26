@@ -15,13 +15,13 @@ class GroupsDetector
 {
     /** @var array<class-string|BaseDetector, Group> */
     protected static array $detectors = [
-        Group1::class => Group::GROUP_1,
-        Group2::class => Group::GROUP_2,
-        Group3::class => Group::GROUP_3,
-        Group4::class => Group::GROUP_4,
+        Group1::class => Group::LetterClothingSize,
+        Group2::class => Group::ClothesAndShoes,
+        Group3::class => Group::BraSize,
+        Group4::class => Group::OverallDimensions,
     ];
 
-    protected static Group $default = Group::GROUP_5;
+    protected static Group $default = Group::OtherSizes;
 
     public static function detect(string $value): int
     {

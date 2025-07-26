@@ -12,7 +12,7 @@ use Tests\Fixtures\Helpers\Str;
 use Tests\Fixtures\Laravel\Eloquent\Model;
 use Tests\TestCase;
 
-class TypesTest extends TestCase
+class TypeTest extends TestCase
 {
     public function testString(): void
     {
@@ -63,7 +63,7 @@ class TypesTest extends TestCase
                 104 => 'ONE SIZE',
                 131 => 'some',
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 
@@ -116,7 +116,7 @@ class TypesTest extends TestCase
                 104 => $items[104],
                 131 => $items[131],
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 
@@ -139,7 +139,7 @@ class TypesTest extends TestCase
                 149 => 21,
                 133 => 30,
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 
@@ -162,7 +162,7 @@ class TypesTest extends TestCase
                 149 => 21.8,
                 133 => 30.5,
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 
@@ -213,7 +213,7 @@ class TypesTest extends TestCase
                 104 => StringValue::VALUE_ONE_SIZE,
                 131 => StringValue::VALUE_SOME,
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 
@@ -236,7 +236,7 @@ class TypesTest extends TestCase
                 149 => IntegerValue::VALUE_21,
                 133 => IntegerValue::VALUE_30,
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 
@@ -289,7 +289,7 @@ class TypesTest extends TestCase
                 104 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'ONE SIZE']]],
                 131 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'some']]],
             ],
-            Sorter::sort($items, 'bar.some.nested')->toArray()
+            Sorter::same($items)->column('bar.some.nested')->sort1()->toArray()
         );
     }
 
@@ -344,7 +344,7 @@ class TypesTest extends TestCase
                 104 => 'ONE SIZE',
                 131 => 'some',
             ],
-            Sorter::sort($items)->pluck('value', 'id')->toArray()
+            Sorter::same($items)->sort1()->pluck('value', 'id')->toArray()
         );
     }
 
@@ -397,7 +397,7 @@ class TypesTest extends TestCase
                 104 => 'ONE SIZE',
                 131 => 'some',
             ],
-            Sorter::sort($items)->toArray()
+            Sorter::same($items)->sort1()->toArray()
         );
     }
 }

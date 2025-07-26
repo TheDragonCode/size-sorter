@@ -11,7 +11,8 @@
 
 ## Installation
 
-To get the latest version of `Product Size Sorter`, simply require the project using [Composer](https://getcomposer.org):
+To get the latest version of `Product Size Sorter`, simply require the project
+using [Composer](https://getcomposer.org):
 
 ```bash
 composer require dragon-code/size-sorter
@@ -27,23 +28,11 @@ Or manually update `require` block of `composer.json` and run composer update.
 }
 ```
 
-## Compatibility
-
-> Note
-> 
-> This package can work outside the frameworks systems.
-
-| Compatibility | Versions |
-|:--------------|:---------|
-| PHP           | 8.2+     |
-| Laravel       | 8.0+     |
-| Symfony       | 5.3+     |
-
 ## Usage
 
 When calling a sort with common values, each element will be assigned to one of five groups:
 
-1. Letter clothing size (XXS, XS, M, L, etc.)
+1. Letter clothing size (XXS, XS, M, L, 2XL, etc.)
 2. Numerical size of clothes and shoes (9, 10, 44-46, 48, etc.)
 3. Bra size (70B, 75A, 80C, etc...)
 4. Overall dimensions of items (40x38x19 sm, etc.)
@@ -52,7 +41,7 @@ When calling a sort with common values, each element will be assigned to one of 
 ```php
 use DragonCode\SizeSorter\Sorter;
 
-return Sorter::sort(collect([
+return new Sorter([
     'XXL',
     '26',
     '28',
@@ -61,12 +50,12 @@ return Sorter::sort(collect([
     'XXS',
     '2',
     '54',
-]));
+])->sort1();
 
 /*
  * Returns:
  * 
- * Collection([
+ * array: [
  *   'XXS',
  *   'XL',
  *   'XXL',
@@ -75,19 +64,38 @@ return Sorter::sort(collect([
  *   '28',
  *   '54',
  *   'ONE SIZE',
- * ])
+ * ]
  */
 ```
 
 ```php
 use DragonCode\SizeSorter\Sorter;
 
+// Laravel models collection
 $items = Size::query()->get();
 
-return Sorter::sort($items, 'title');
+return new Sorter($items)
+    ->column('title')
+    ->sort1();
 ```
 
-> You can see more examples in the [test file](tests/Sorters/SorterTest.php).
+```php
+use DragonCode\SizeSorter\Sorter;
+
+// Laravel collection
+$items = collect([...]);
+
+return new Sorter($items)
+    ->sort1();
+
+/*
+ * Returns:
+ * 
+ * Collection: [
+ *   // ...
+ * ]
+ */
+```
 
 ### Groups Order
 
@@ -105,15 +113,21 @@ But you can change the order by specifying identifiers as the third parameter:
 use DragonCode\SizeSorter\Enum\Group;
 use DragonCode\SizeSorter\Sorter;
 
-return Sorter::sort($items, groupsOrder: [3, 5, 4, 2, 1]);
+return new Sorter($items)
+    ->groupsOrder([3, 5, 4, 2, 1])
+    ->sort1();
+
 // or
-return Sorter::sort($items, groupsOrder: [
-    Group::GROUP_3,
-    Group::GROUP_5,
-    Group::GROUP_4,
-    Group::GROUP_2,
-    Group::GROUP_1,
-]);
+
+return new Sorter($items)
+    ->groupsOrder([
+        Group::BraSize,
+        Group::OtherSizes,
+        Group::OverallDimensions,
+        Group::ClothesAndShoes,
+        Group::LetterClothingSize,
+    ])
+    ->sort1();
 ```
 
 The final array will be formed in the specified order:
@@ -128,12 +142,19 @@ You can also specify some groups. For example:
 use DragonCode\SizeSorter\Enum\Group;
 use DragonCode\SizeSorter\Sorter;
 
-return Sorter::sort($items, groupsOrder: [3, 5]);
+return new Sorter($items)
+    ->groupsOrder([3, 5])
+    ->sort1();
+
 // or
-return Sorter::sort($items, groupsOrder: [Group::GROUP_3, Group::GROUP_5]);
+
+return new Sorter($items)
+    ->groupsOrder([Group::BraSize, Group::OtherSizes])
+    ->sort1();
 ```
 
-In this case, the first two logical groups will be sorted in the specified order, and the subsequent ones will be in ascending order:
+In this case, the first two logical groups will be sorted in the specified order, and the subsequent ones will be in
+ascending order:
 
 ```
 3 - 5 - 1 - 2 - 4
