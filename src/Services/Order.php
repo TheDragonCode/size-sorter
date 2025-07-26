@@ -40,7 +40,7 @@ class Order
     protected function fillDefault(array $groups): array
     {
         foreach ($this->groups() as $group) {
-            if (! in_array($group, $groups)) {
+            if (! in_array($group, $groups, true)) {
                 $groups[] = $group;
             }
         }
@@ -54,7 +54,7 @@ class Order
     }
 
     /**
-     * @return array<Group>
+     * @return Group[]
      */
     protected function groups(): array
     {
