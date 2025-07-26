@@ -14,7 +14,7 @@ class MainLogic
     public static function sort(iterable $items, string $column = 'value', ?array $groupsOrder = null): IC
     {
         return static::flatten(
-            static::handle(collect($items), $column, Order::resolve($groupsOrder))
+            static::handle(collect($items), $column, $groupsOrder)
         );
     }
 
