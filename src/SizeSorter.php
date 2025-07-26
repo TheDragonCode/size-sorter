@@ -22,7 +22,7 @@ class SizeSorter
 
     public function __construct(
         protected readonly iterable $items,
-        protected readonly Order $order = new Order()
+        protected readonly Order $order = new Order
     ) {}
 
     public function column(string $name): static
@@ -34,7 +34,6 @@ class SizeSorter
 
     /**
      * @param  Group[]|null  $order
-     *
      * @return $this
      */
     public function orderBy(?array $order): static
