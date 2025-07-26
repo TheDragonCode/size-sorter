@@ -39,9 +39,9 @@ When calling a sort with common values, each element will be assigned to one of 
 5. Other values
 
 ```php
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 
-return new Sorter([
+return new SizeSorter([
     'XXL',
     '26',
     '28',
@@ -69,23 +69,23 @@ return new Sorter([
 ```
 
 ```php
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 
 // Laravel models collection
 $items = Size::query()->get();
 
-return new Sorter($items)
+return new SizeSorter($items)
     ->column('title')
     ->sort();
 ```
 
 ```php
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 
 // Laravel collection
 $items = collect([...]);
 
-return new Sorter($items)
+return new SizeSorter($items)
     ->sort();
 
 /*
@@ -111,16 +111,10 @@ But you can change the order by specifying identifiers as the third parameter:
 
 ```php
 use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 
-return new Sorter($items)
-    ->groupsOrder([3, 5, 4, 2, 1])
-    ->sort();
-
-// or
-
-return new Sorter($items)
-    ->groupsOrder([
+return new SizeSorter($items)
+    ->orderBy([
         Group::BraSize,
         Group::OtherSizes,
         Group::OverallDimensions,
@@ -140,16 +134,10 @@ You can also specify some groups. For example:
 
 ```php
 use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 
-return new Sorter($items)
-    ->groupsOrder([3, 5])
-    ->sort();
-
-// or
-
-return new Sorter($items)
-    ->groupsOrder([Group::BraSize, Group::OtherSizes])
+return new SizeSorter($items)
+    ->orderBy([Group::BraSize, Group::OtherSizes])
     ->sort();
 ```
 

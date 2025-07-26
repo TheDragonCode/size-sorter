@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Sorters;
 
 use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
 
@@ -14,8 +14,8 @@ class SortTest extends TestCase
     #[DataProvider('sorterData')]
     public function testArray(?array $order, array $expected): void
     {
-        $actual = Sorter::same($this->values)
-            ->groupsOrder($order)
+        $actual = SizeSorter::items($this->values)
+            ->orderBy($order)
             ->sort()
             ->toArray();
 
@@ -31,8 +31,8 @@ class SortTest extends TestCase
             'active' => true,
         ]);
 
-        $actual = Sorter::same($items)
-            ->groupsOrder($order)
+        $actual = SizeSorter::items($items)
+            ->orderBy($order)
             ->sort()
             ->pluck('value', 'id')
             ->toArray();
@@ -48,8 +48,8 @@ class SortTest extends TestCase
             'some' => $value,
         ]);
 
-        $actual = Sorter::same($items)
-            ->groupsOrder($order)
+        $actual = SizeSorter::items($items)
+            ->orderBy($order)
             ->column('some')
             ->sort()
             ->pluck('some', 'id')
@@ -71,8 +71,8 @@ class SortTest extends TestCase
             840 => 'XL',
         ];
 
-        $actual = Sorter::same($values)
-            ->groupsOrder($order)
+        $actual = SizeSorter::items($values)
+            ->orderBy($order)
             ->sort()
             ->toArray();
 

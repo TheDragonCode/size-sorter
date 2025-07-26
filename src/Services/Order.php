@@ -8,28 +8,28 @@ use DragonCode\SizeSorter\Enum\Group;
 
 class Order
 {
-    public static function resolve(?array $groups): array
+    public function resolve(?array $groups = null): array
     {
         return ! empty($groups)
-            ? static::fill($groups)
-            : static::groups();
+            ? $this->fill($groups)
+            : $this->groups();
     }
 
-    protected static function fill(array $groups): array
+    protected function fill(array $groups): array
     {
-        return static::fillDefault(
-            static::fillCustom($groups)
+        return $this->fillDefault(
+            $this->fillCustom($groups)
         );
     }
 
-    protected static function fillCustom(array $groups): array
+    protected function fillCustom(array $groups): array
     {
         $result = [];
 
         foreach ($groups as $group) {
-            $value = static::resolveValue($group);
+            $value = $this->resolveValue($group);
 
-            if (static::existGroup($value)) {
+            if ($this->existGroup($value)) {
                 $result[] = $value;
             }
         }
@@ -37,9 +37,9 @@ class Order
         return $result;
     }
 
-    protected static function fillDefault(array $groups): array
+    protected function fillDefault(array $groups): array
     {
-        foreach (static::groups() as $group) {
+        foreach ($this->groups() as $group) {
             if (! in_array($group, $groups)) {
                 $groups[] = $group;
             }
@@ -48,7 +48,7 @@ class Order
         return $groups;
     }
 
-    protected static function existGroup(int $value): bool
+    protected function existGroup(int $value): bool
     {
         return Group::exists($value);
     }
@@ -56,12 +56,12 @@ class Order
     /**
      * @return array<Group>
      */
-    protected static function groups(): array
+    protected function groups(): array
     {
         return Group::values();
     }
 
-    protected static function resolveValue(Group|int $group): int
+    protected function resolveValue(Group|int $group): int
     {
         return $group->value ?? $group;
     }

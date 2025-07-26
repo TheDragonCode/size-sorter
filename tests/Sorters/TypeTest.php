@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Sorters;
 
-use DragonCode\SizeSorter\Sorter;
+use DragonCode\SizeSorter\SizeSorter;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\Fixtures\Enums\IntegerValue;
 use Tests\Fixtures\Enums\StringValue;
@@ -63,7 +63,7 @@ class TypeTest extends TestCase
                 104 => 'ONE SIZE',
                 131 => 'some',
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 
@@ -116,7 +116,7 @@ class TypeTest extends TestCase
                 104 => $items[104],
                 131 => $items[131],
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 
@@ -139,7 +139,7 @@ class TypeTest extends TestCase
                 149 => 21,
                 133 => 30,
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 
@@ -162,7 +162,7 @@ class TypeTest extends TestCase
                 149 => 21.8,
                 133 => 30.5,
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 
@@ -213,7 +213,7 @@ class TypeTest extends TestCase
                 104 => StringValue::VALUE_ONE_SIZE,
                 131 => StringValue::VALUE_SOME,
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 
@@ -236,7 +236,7 @@ class TypeTest extends TestCase
                 149 => IntegerValue::VALUE_21,
                 133 => IntegerValue::VALUE_30,
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 
@@ -289,7 +289,7 @@ class TypeTest extends TestCase
                 104 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'ONE SIZE']]],
                 131 => ['foo' => 'Foo', 'bar' => ['some' => ['nested' => 'some']]],
             ],
-            Sorter::same($items)->column('bar.some.nested')->sort()->toArray()
+            SizeSorter::items($items)->column('bar.some.nested')->sort()->toArray()
         );
     }
 
@@ -344,7 +344,7 @@ class TypeTest extends TestCase
                 104 => 'ONE SIZE',
                 131 => 'some',
             ],
-            Sorter::same($items)->sort()->pluck('value', 'id')->toArray()
+            SizeSorter::items($items)->sort()->pluck('value', 'id')->toArray()
         );
     }
 
@@ -397,7 +397,7 @@ class TypeTest extends TestCase
                 104 => 'ONE SIZE',
                 131 => 'some',
             ],
-            Sorter::same($items)->sort()->toArray()
+            SizeSorter::items($items)->sort()->toArray()
         );
     }
 }
