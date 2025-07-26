@@ -143,6 +143,92 @@ ascending order:
 3 - 5 - 1 - 2 - 4
 ```
 
+### Custom Column
+
+When working with an array of objects, you can specify which value can be used for sorting.
+
+```php
+use DragonCode\SizeSorter\SizeSorter;
+
+return new SizeSorter($items)
+    ->column('foo')
+    ->sort();
+```
+
+You can also use "dotted" notation:
+
+```php
+use DragonCode\SizeSorter\SizeSorter;
+
+$items = [
+    [
+        'foo' => [
+            'bar' => [
+                'baz' => 'Some value',
+            ]
+        ]
+    ]
+];
+
+return new SizeSorter($items)
+    ->column('foo.bar.baz')
+    ->sort();
+```
+
+And you can use the callback function in the same way:
+
+```php
+use DragonCode\SizeSorter\SizeSorter;
+
+class Foo
+{
+    public function __construct(
+        public int $number,
+        public string $value1,
+        public string $value2,
+    ) {}
+}
+
+$items = [
+    new Foo(1, 'first 1', 'first 2'),
+    new Foo(2, 'second 1', 'second 2'),
+];
+
+return new SizeSorter($items)
+    ->column(function (Foo $item) {
+        return $item->number % 2 === 0
+            ? $item->value1
+            : $item->value2;
+    })
+    ->sort();
+```
+
+And this is also possible:
+
+```php
+use DragonCode\SizeSorter\SizeSorter;
+
+$items = [
+    ['foo' => 'XS'],
+    ['foo' => '2XS'],
+    ['foo' => '3XL'],
+];
+
+return new SizeSorter($items)
+    ->column(function (array $item) {
+        return match ($item['foo']) {
+            '2XS' => 'XXS',
+            '3XL' => 'XXXL',
+            default => $item['foo']
+        };
+    })
+    ->sort();
+```
+
+## Upgrade Guide
+
+You can find the upgrade documentation [here](UPGRADE.md).
+
 ## License
 
 This package is licensed under the [MIT License](LICENSE).

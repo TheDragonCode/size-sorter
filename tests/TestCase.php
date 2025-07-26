@@ -66,5 +66,8 @@ abstract class TestCase extends BaseTestCase
         154 => '40х38х15 см',
         155 => '41х38х15 см',
         156 => '39х38х15 см',
+        157 => '3xl',
+        158 => '2xl',
+        159 => '2xs',
     ];
 }

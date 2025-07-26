@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
-class NumberSorter extends Sorter
+abstract class Sorter
 {
 }

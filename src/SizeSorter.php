@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter;
 
-use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Services\Order;
+use Closure;
+use DragonCode\SizeSorter\Enums\GroupEnum;
 use DragonCode\SizeSorter\Services\Processor;
+use DragonCode\SizeSorter\Support\GroupOrder;
+use DragonCode\SizeSorter\Support\Resolve;
 use DragonCode\SizeSorter\Support\Validator;
 use Illuminate\Support\Collection;
 
 class SizeSorter
 {
-    protected string $column = 'value';
+    protected string|Closure $column = 'value';
 
-    protected ?array $orderBy = null;
+    protected ?iterable $orderBy = null;
 
     public static function items(iterable $items): static
     {
@@ -23,11 +25,10 @@ class SizeSorter
 
     public function __construct(
         protected readonly iterable $items,
-        protected readonly Order $order = new Order,
-        protected readonly Processor $processor = new Processor,
+        protected readonly Processor $processor = new Processor(),
     ) {}
 
-    public function column(string $name): static
+    public function column(string|Closure $name): static
     {
         $this->column = $name;
 
@@ -35,12 +36,13 @@ class SizeSorter
     }
 
     /**
-     * @param  Group[]|null  $order
+     * @param  GroupEnum[]|null  $order
+     *
      * @return $this
      */
-    public function orderBy(?array $order): static
+    public function orderBy(?iterable $order): static
     {
-        Validator::ensure($order, Group::class);
+        Validator::ensure($order, GroupEnum::class);
 
         $this->orderBy = $order;
 
@@ -61,14 +63,18 @@ class SizeSorter
         return new Collection($this->items);
     }
 
-    protected function getColumn(): string
+    protected function getColumn(): Closure
     {
-        return $this->column;
+        if ($this->column instanceof Closure) {
+            return $this->column;
+        }
+
+        return fn (mixed $item) => Resolve::value($item, $this->column);
     }
 
-    protected function getOrderBy(): ?array
+    protected function getOrderBy(): array
     {
-        return $this->order->resolve(
+        return GroupOrder::get(
             $this->orderBy
         );
     }
