@@ -16,7 +16,7 @@ class SortTest extends TestCase
     {
         $actual = Sorter::same($this->values)
             ->groupsOrder($order)
-            ->sort1()
+            ->sort()
             ->toArray();
 
         $this->assertSame($expected, $actual);
@@ -33,7 +33,7 @@ class SortTest extends TestCase
 
         $actual = Sorter::same($items)
             ->groupsOrder($order)
-            ->sort1()
+            ->sort()
             ->pluck('value', 'id')
             ->toArray();
 
@@ -51,7 +51,7 @@ class SortTest extends TestCase
         $actual = Sorter::same($items)
             ->groupsOrder($order)
             ->column('some')
-            ->sort1()
+            ->sort()
             ->pluck('some', 'id')
             ->toArray();
 
@@ -73,7 +73,7 @@ class SortTest extends TestCase
 
         $actual = Sorter::same($values)
             ->groupsOrder($order)
-            ->sort1()
+            ->sort()
             ->toArray();
 
         $this->assertSame($expected, $actual);

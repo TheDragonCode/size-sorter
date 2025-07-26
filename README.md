@@ -50,7 +50,7 @@ return new Sorter([
     'XXS',
     '2',
     '54',
-])->sort1();
+])->sort();
 
 /*
  * Returns:
@@ -76,7 +76,7 @@ $items = Size::query()->get();
 
 return new Sorter($items)
     ->column('title')
-    ->sort1();
+    ->sort();
 ```
 
 ```php
@@ -86,7 +86,7 @@ use DragonCode\SizeSorter\Sorter;
 $items = collect([...]);
 
 return new Sorter($items)
-    ->sort1();
+    ->sort();
 
 /*
  * Returns:
@@ -115,7 +115,7 @@ use DragonCode\SizeSorter\Sorter;
 
 return new Sorter($items)
     ->groupsOrder([3, 5, 4, 2, 1])
-    ->sort1();
+    ->sort();
 
 // or
 
@@ -127,7 +127,7 @@ return new Sorter($items)
         Group::ClothesAndShoes,
         Group::LetterClothingSize,
     ])
-    ->sort1();
+    ->sort();
 ```
 
 The final array will be formed in the specified order:
@@ -144,13 +144,13 @@ use DragonCode\SizeSorter\Sorter;
 
 return new Sorter($items)
     ->groupsOrder([3, 5])
-    ->sort1();
+    ->sort();
 
 // or
 
 return new Sorter($items)
     ->groupsOrder([Group::BraSize, Group::OtherSizes])
-    ->sort1();
+    ->sort();
 ```
 
 In this case, the first two logical groups will be sorted in the specified order, and the subsequent ones will be in
