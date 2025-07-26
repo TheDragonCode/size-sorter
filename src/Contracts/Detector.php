@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Contracts;
 
-interface GroupMatcher
+interface Detector
 {
     public static function detect(string $value): bool;
 }

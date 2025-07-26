@@ -9,23 +9,23 @@ use DragonCode\SizeSorter\Sorters\ArrowSorter;
 use DragonCode\SizeSorter\Sorters\CharSorter;
 use DragonCode\SizeSorter\Sorters\NumberSorter;
 use DragonCode\Support\Helpers\Ables\Stringable;
-use Illuminate\Support\Collection as IC;
+use Illuminate\Support\Collection;
 
-class MainLogic
+class Processor
 {
-    public static function sort(iterable $items, string $column = 'value', ?array $groupsOrder = null): IC
+    public function run(Collection $items, string $column = 'value', ?array $groupsOrder = null): Collection
     {
         return static::flatten(
-            static::handle(collect($items), $column, $groupsOrder)
+            static::handle($items, $column, $groupsOrder)
         );
     }
 
-    protected static function handle(IC $items, string $column, array $groupsOrder): IC
+    protected static function handle(Collection $items, string $column, array $groupsOrder): Collection
     {
         return static::orderGroups(static::sorting($items, $column), $groupsOrder);
     }
 
-    protected static function orderGroups(IC $items, array $order): IC
+    protected static function orderGroups(Collection $items, array $order): Collection
     {
         $result = static::collect();
 
@@ -38,16 +38,16 @@ class MainLogic
         return $result;
     }
 
-    protected static function sorting(IC $items, string $column = 'value'): IC
+    protected static function sorting(Collection $items, string $column = 'value'): Collection
     {
         return $items
             ->groupBy(static fn (mixed $size) => static::detectGroup(
                 static::resolveValue($size, $column)->toString()
             ), true)
-            ->map(static fn (IC $items, int $group) => static::sortByGroup($items, $group, $column));
+            ->map(static fn (Collection $items, int $group) => static::sortByGroup($items, $group, $column));
     }
 
-    protected static function sortByGroup(IC $items, int $group, string $column): IC
+    protected static function sortByGroup(Collection $items, int $group, string $column): Collection
     {
         return match ($group) {
             Group::LetterClothingSize->value => static::sortChars($items, $column),
@@ -56,7 +56,7 @@ class MainLogic
         };
     }
 
-    protected static function sortChars(IC $values, string $column): IC
+    protected static function sortChars(Collection $values, string $column): Collection
     {
         return $values->groupBy(
             static fn (mixed $size) => static::resolveValue($size, $column)
@@ -66,36 +66,36 @@ class MainLogic
         )
             ->sortKeysDesc()
             ->map(
-                static fn (IC $values, string $group) => $group === 's'
+                static fn (Collection $values, string $group) => $group === 's'
                     ? static::sortSmallSizes($values, $column)
                     : static::sortArrows($values, $column)
             );
     }
 
-    protected static function sortSmallSizes(IC $values, string $column): IC
+    protected static function sortSmallSizes(Collection $values, string $column): Collection
     {
         return $values->sort(
             ArrowSorter::get($column, -1)
         )
             ->groupBy(static fn (mixed $size) => static::resolveValue($size, $column)->toString(), true)
-            ->map(static fn (IC $values) => static::sortSpecialChars($values, $column));
+            ->map(static fn (Collection $values) => static::sortSpecialChars($values, $column));
     }
 
-    protected static function sortSpecialChars(IC $values, string $column): IC
+    protected static function sortSpecialChars(Collection $values, string $column): Collection
     {
         return $values->sort(
             CharSorter::get($column)
         );
     }
 
-    protected static function sortArrows(IC $values, string $column): IC
+    protected static function sortArrows(Collection $values, string $column): Collection
     {
         return $values->sort(
             ArrowSorter::get($column)
         );
     }
 
-    protected static function sortNumbers(IC $items, string $column): IC
+    protected static function sortNumbers(Collection $items, string $column): Collection
     {
         return $items->sort(
             NumberSorter::get($column)
@@ -107,14 +107,14 @@ class MainLogic
         return GroupsDetector::detect($value);
     }
 
-    protected static function collect(): IC
+    protected static function collect(): Collection
     {
-        return Collection::make();
+        return Collection1::make();
     }
 
-    protected static function flatten(IC $items): IC
+    protected static function flatten(Collection $items): Collection
     {
-        return Collection::flatten($items);
+        return Collection1::flatten($items);
     }
 
     protected static function resolveValue(mixed $value, string $column): Stringable

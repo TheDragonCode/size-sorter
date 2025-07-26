@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace DragonCode\SizeSorter;
 
 use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Services\MainLogic;
 use DragonCode\SizeSorter\Services\Order;
+use DragonCode\SizeSorter\Services\Processor;
 use DragonCode\SizeSorter\Support\Validator;
+use Illuminate\Support\Collection;
 
 class SizeSorter
 {
@@ -22,7 +23,8 @@ class SizeSorter
 
     public function __construct(
         protected readonly iterable $items,
-        protected readonly Order $order = new Order
+        protected readonly Order $order = new Order,
+        protected readonly Processor $processor = new Processor,
     ) {}
 
     public function column(string $name): static
@@ -40,18 +42,34 @@ class SizeSorter
     {
         Validator::ensure($order, Group::class);
 
-        $this->orderBy = $this->order->resolve($order);
+        $this->orderBy = $order;
 
         return $this;
     }
 
-    public function sort(): iterable
+    public function sort(): Collection
     {
-        return MainLogic::sort($this->items, $this->column, $this->getOrderBy());
+        return $this->processor->run(
+            $this->getItems(),
+            $this->getColumn(),
+            $this->getOrderBy()
+        );
+    }
+
+    protected function getItems(): Collection
+    {
+        return new Collection($this->items);
+    }
+
+    protected function getColumn(): string
+    {
+        return $this->column;
     }
 
     protected function getOrderBy(): ?array
     {
-        return $this->orderBy ?? $this->order->resolve();
+        return $this->order->resolve(
+            $this->orderBy
+        );
     }
 }

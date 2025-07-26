@@ -17,7 +17,11 @@ class CharSorter extends BaseSorter
 
             $arrow = static::contains($a, '/') && static::contains($b, '-') ? -1 : 1;
 
-            return Resolver::callback(static::resolveArrow($arrow, $column), $a, $b);
+            return Resolver::callback(
+                static::resolveArrow($arrow, $column),
+                $a,
+                $b
+            );
         };
     }
 

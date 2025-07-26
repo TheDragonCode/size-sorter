@@ -55,7 +55,7 @@ return new SizeSorter([
 /*
  * Returns:
  * 
- * array: [
+ * Illuminate\Support\Collection([
  *   'XXS',
  *   'XL',
  *   'XXL',
@@ -64,7 +64,7 @@ return new SizeSorter([
  *   '28',
  *   '54',
  *   'ONE SIZE',
- * ]
+ * ])
  */
 ```
 
@@ -72,29 +72,21 @@ return new SizeSorter([
 use DragonCode\SizeSorter\SizeSorter;
 
 // Laravel models collection
-$items = Size::query()->get();
+$items = Size::get();
 
 return new SizeSorter($items)
     ->column('title')
     ->sort();
 ```
 
+The static `items` method is also available:
+
 ```php
 use DragonCode\SizeSorter\SizeSorter;
 
-// Laravel collection
-$items = collect([...]);
-
-return new SizeSorter($items)
-    ->sort();
-
-/*
- * Returns:
- * 
- * Collection: [
- *   // ...
- * ]
- */
+return SizeSorter::items([
+    // ...
+])->sort();
 ```
 
 ### Groups Order
@@ -137,7 +129,10 @@ use DragonCode\SizeSorter\Enum\Group;
 use DragonCode\SizeSorter\SizeSorter;
 
 return new SizeSorter($items)
-    ->orderBy([Group::BraSize, Group::OtherSizes])
+    ->orderBy([
+        Group::BraSize,
+        Group::OtherSizes,
+    ])
     ->sort();
 ```
 
@@ -153,7 +148,7 @@ ascending order:
 This package is licensed under the [MIT License](LICENSE).
 
 
-[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/size-sorter/phpunit.yml?style=flat-square
+[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/size-sorter/tests.yml?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/size-sorter.svg?style=flat-square
 

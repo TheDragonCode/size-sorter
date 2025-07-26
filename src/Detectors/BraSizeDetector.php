@@ -6,7 +6,7 @@ namespace DragonCode\SizeSorter\Detectors;
 
 use DragonCode\SizeSorter\Services\Str;
 
-class Group3 extends Base
+class BraSizeDetector extends BaseDetector
 {
     protected static array|string $pattern = '/^(\d+[a-f]{1,2})$/';
 
