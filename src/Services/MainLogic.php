@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace DragonCode\SizeSorter\Services;
 
 use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Sorters\SorterManager;
+use DragonCode\SizeSorter\Sorters\ArrowSorter;
+use DragonCode\SizeSorter\Sorters\CharSorter;
+use DragonCode\SizeSorter\Sorters\NumberSorter;
 use DragonCode\Support\Helpers\Ables\Stringable;
 use Illuminate\Support\Collection as IC;
 
@@ -73,7 +75,7 @@ class MainLogic
     protected static function sortSmallSizes(IC $values, string $column): IC
     {
         return $values->sort(
-            SorterManager::byArrow($column, -1)
+            ArrowSorter::get($column, -1)
         )
             ->groupBy(static fn (mixed $size) => static::resolveValue($size, $column)->toString(), true)
             ->map(static fn (IC $values) => static::sortSpecialChars($values, $column));
@@ -82,21 +84,21 @@ class MainLogic
     protected static function sortSpecialChars(IC $values, string $column): IC
     {
         return $values->sort(
-            SorterManager::byChars($column)
+            CharSorter::get($column)
         );
     }
 
     protected static function sortArrows(IC $values, string $column): IC
     {
         return $values->sort(
-            SorterManager::byArrow($column)
+            ArrowSorter::get($column)
         );
     }
 
     protected static function sortNumbers(IC $items, string $column): IC
     {
         return $items->sort(
-            SorterManager::byNumbers($column)
+            NumberSorter::get($column)
         );
     }
 

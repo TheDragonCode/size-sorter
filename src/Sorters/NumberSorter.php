@@ -6,9 +6,9 @@ namespace DragonCode\SizeSorter\Sorters;
 
 use DragonCode\SizeSorter\Services\Resolver;
 
-class Numbers extends Base
+class NumberSorter extends BaseSorter
 {
-    public static function callback(string $column, int $arrow = 1): callable
+    public static function get(string $column, int $arrow = 1): callable
     {
         return static function (mixed $a, mixed $b) use ($column, $arrow) {
             $a = static::number($a, $column);

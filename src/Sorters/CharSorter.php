@@ -7,9 +7,9 @@ namespace DragonCode\SizeSorter\Sorters;
 use DragonCode\SizeSorter\Services\Resolver;
 use DragonCode\SizeSorter\Services\Str;
 
-class Chars extends Base
+class CharSorter extends BaseSorter
 {
-    public static function callback(string $column, int $arrow = 1): callable
+    public static function get(string $column, int $arrow = 1): callable
     {
         return static function (mixed $a, mixed $b) use ($column, $arrow) {
             $a = static::key($a, $column);
@@ -23,7 +23,7 @@ class Chars extends Base
 
     protected static function resolveArrow(int $arrow, string $column): callable
     {
-        return Arrow::callback($column, $arrow);
+        return ArrowSorter::get($column, $arrow);
     }
 
     protected static function contains(string $value, string $needle): bool

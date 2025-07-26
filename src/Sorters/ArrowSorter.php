@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
-class Arrow extends Base
+class ArrowSorter extends BaseSorter
 {
-    public static function callback(string $column, int $arrow = 1): callable
+    public static function get(string $column, int $arrow = 1): callable
     {
         return static function (mixed $a, mixed $b) use ($arrow, $column) {
             $a = static::key($a, $column);
