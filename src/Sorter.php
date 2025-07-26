@@ -40,7 +40,7 @@ class Sorter
         return $this;
     }
 
-    public function sort1(): iterable
+    public function sort(): iterable
     {
         return MainLogic::sort($this->items, $this->column, $this->groupsOrder);
     }
