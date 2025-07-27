@@ -7,10 +7,9 @@ namespace DragonCode\SizeSorter\Groups;
 use DragonCode\SizeSorter\Enums\GroupEnum;
 use Illuminate\Support\Str;
 
-use function array_keys;
-use function array_values;
-use function preg_replace_callback;
-use function str_repeat;
+use function in_array;
+use function preg_match;
+use function strlen;
 
 class LetterClothingGroup extends Group
 {
@@ -18,39 +17,51 @@ class LetterClothingGroup extends Group
 
     protected static array|string $pattern = '/^(?\'size\'(([2-9]?[x]{1,9}[sml]{1})|([sml])))(_(?1))?$/';
 
-    public static function normalize(mixed $value, int|string $key): string
-    {
-        if (! static::containsNumber($value)) {
-            return parent::normalize($value . '0', $key);
-        }
+    protected static array $multiplier = [
+        's' => 100,
+        'm' => 1000,
+        'l' => 10000,
+    ];
 
-        $matches = static::match($value);
-
-        $value = Str::replace(
-            array_keys($matches),
-            array_values($matches),
-            $value
-        );
-
-        return parent::normalize($value . '1', $key);
-    }
-
-    protected static function containsNumber(string $value): bool
-    {
-        return Str::isMatch('/\d/', $value);
-    }
-
-    protected static function match(string $value): array
+    protected static function prepare(mixed $value): string
     {
         return Str::of($value)
-            ->matchAll('/\dx/')
-            ->mapWithKeys(static function (string $item) {
-                $replace = preg_replace_callback('/(\d)x/', function (array $matches) {
-                    return str_repeat('x', (int) $matches[1]);
-                }, $item);
+            ->explode('_')
+            ->map(static fn (mixed $value) => static::convert($value))
+            ->implode('_');
+    }
 
-                return [$item => $replace];
-            })
-            ->all();
+    protected static function convert(mixed $value): string
+    {
+        if (in_array($value, ['s', 'm', 'l'])) {
+            return (string) static::multiply($value, 1);
+        }
+
+        if (preg_match('/^(x+)?s$/', $value, $matches)) {
+            $count = isset($matches[1]) ? strlen($matches[1]) : 1;
+
+            return (string) static::multiply('s', $count);
+        }
+
+        if (preg_match('/^(\d+)xs$/', $value, $matches)) {
+            return (string) static::multiply('s', (int) $matches[1], 1);
+        }
+
+        if (preg_match('/^(x+)l$/', $value, $matches)) {
+            $count = strlen($matches[1]);
+
+            return (string) static::multiply('l', $count);
+        }
+
+        if (preg_match('/^(\d+)xl$/', $value, $matches)) {
+            return (string) static::multiply('l', (int) $matches[1], 1);
+        }
+
+        return '0';
+    }
+
+    protected static function multiply(string $key, int $count, int $plus = 0): int
+    {
+        return static::$multiplier[$key] * $count + $plus;
     }
 }

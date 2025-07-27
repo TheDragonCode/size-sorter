@@ -14,7 +14,7 @@ use Illuminate\Support\Collection;
 
 class SizeSorter
 {
-    protected string|Closure $column = 'value';
+    protected Closure|string $column = 'value';
 
     protected ?iterable $orderBy = null;
 
@@ -25,10 +25,10 @@ class SizeSorter
 
     public function __construct(
         protected readonly iterable $items,
-        protected readonly Processor $processor = new Processor(),
+        protected readonly Processor $processor = new Processor,
     ) {}
 
-    public function column(string|Closure $name): static
+    public function column(Closure|string $name): static
     {
         $this->column = $name;
 
@@ -37,11 +37,14 @@ class SizeSorter
 
     /**
      * @param  GroupEnum[]|null  $order
-     *
      * @return $this
      */
     public function orderBy(?iterable $order): static
     {
+        if (empty($order)) {
+            return $this;
+        }
+
         Validator::ensure($order, GroupEnum::class);
 
         $this->orderBy = $order;

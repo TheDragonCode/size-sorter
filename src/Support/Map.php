@@ -35,7 +35,7 @@ class Map
     {
         Validator::mapCount($items, $map);
 
-        return $map->mapWithKeys(fn (string|int $index) => [
+        return $map->mapWithKeys(fn (int|string $index) => [
             $index => $items->get($index),
         ]);
     }
@@ -51,7 +51,7 @@ class Map
         };
     }
 
-    protected static function normalize(int|float|string|Stringable $value): string
+    protected static function normalize(float|int|string|Stringable $value): string
     {
         return KeyNormalizer::normalize($value);
     }

@@ -6,6 +6,7 @@ namespace DragonCode\SizeSorter\Groups;
 
 use DragonCode\SizeSorter\Enums\GroupEnum;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 use function implode;
 
@@ -24,6 +25,16 @@ abstract class Group
 
     public static function normalize(mixed $value, int|string $key): string
     {
-        return implode(static::Delimiter, [static::$group->value, $key, $value]);
+        return implode(static::Delimiter, [static::$group->value, $key, static::prepare($value)]);
+    }
+
+    public static function value(string $key): Stringable
+    {
+        return Str::of($key)->afterLast(static::Delimiter);
+    }
+
+    protected static function prepare(mixed $value): string
+    {
+        return $value;
     }
 }

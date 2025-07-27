@@ -7,31 +7,45 @@ namespace DragonCode\SizeSorter\Services;
 use Closure;
 use DragonCode\SizeSorter\Enums\GroupEnum;
 use DragonCode\SizeSorter\Groups\Group;
-use DragonCode\SizeSorter\Sorters\CharSorter;
 use DragonCode\SizeSorter\Support\Map;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class Processor
 {
+    public function __construct(
+        protected Sort $sort = new Sort
+    ) {}
+
     public function run(Collection $items, Closure $column, array $orderBy): Collection
+    {
+        $sorted = $this->sortItems($items, $column);
+
+        $map = $this->sortGroups($sorted, $orderBy);
+
+        return Map::apply($items, $map);
+    }
+
+    protected function sortItems(Collection $items, Closure $column): Collection
     {
         return $this->map($items, $column)
             ->groupBy(fn (mixed $value, string $key) => $this->detectGroup($key), true)
-            ->map(fn (Collection $values, int $group) => $values->sortKeysUsing(
-                $this->sort($group)
-            ))
-            ->dd();
+            ->map(fn (Collection $values, int $group) => $this->sortPerGroup($values, $group));
     }
 
-    protected function sort(int $group): Closure
+    protected function sortGroups(Collection $items, array $orderBy): Collection
+    {
+        return Collection::make($orderBy)->map(
+            fn (GroupEnum $group) => $items->get($group->value)
+        )->collapseWithKeys();
+    }
+
+    protected function sortPerGroup(Collection $items, int $group): Collection
     {
         return match ($group) {
-            GroupEnum::LetterClothingSize->value => CharSorter::callback(),
-            GroupEnum::ClothesAndShoes->value    => 2,
-            GroupEnum::BraSize->value            => 3,
-            GroupEnum::OverallDimensions->value  => 4,
-            GroupEnum::OtherSizes->value         => 5,
+            GroupEnum::LetterClothingSize->value,
+            GroupEnum::ClothesAndShoes->value => $this->sort->byNumber($items),
+            default                           => $this->sort->byAlphabet($items),
         };
     }
 

@@ -14,7 +14,7 @@ abstract class Detector extends TestCase
     protected SizeDetector|string $detector;
 
     #[DataProvider('valuesData')]
-    public function testValues(string|int $value, bool $expected = false): void
+    public function testValues(int|string $value, bool $expected = false): void
     {
         $actual = $this->detector::detect(
             $this->normalize($value)
@@ -25,7 +25,7 @@ abstract class Detector extends TestCase
 
     abstract public static function valuesData(): array;
 
-    protected function normalize(string|int $value): string
+    protected function normalize(int|string $value): string
     {
         return KeyNormalizer::normalize($value);
     }

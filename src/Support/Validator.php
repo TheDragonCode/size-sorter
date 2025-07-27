@@ -15,10 +15,7 @@ class Validator
     /**
      * @template TEnsureOfType
      *
-     * @param  iterable  $items
      * @param  class-string<TEnsureOfType>|array<array-key, class-string<TEnsureOfType>>|'string'|'int'|'float'|'bool'|'array'|'null'  $class
-     *
-     * @return void
      */
     public static function ensure(iterable $items, string $class): void
     {
@@ -49,7 +46,7 @@ class Validator
         }
 
         throw new LengthException(
-            vsprintf("The count of items in the map (%d) and collection (%d) should be the same.", [
+            vsprintf('The count of items in the map (%d) and collection (%d) should be the same.', [
                 $mapCount,
                 $itemsCount,
             ])

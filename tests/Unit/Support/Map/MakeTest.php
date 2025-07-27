@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Support\Map;
 
 use Closure;
-use DragonCode\SizeSorter\Normalizers\KeyNormalizer;
+use DragonCode\SizeSorter\Groups\Group;
 use DragonCode\SizeSorter\Support\Map;
 use Illuminate\Support\Collection;
 use Tests\Fixtures\Objects\LaravelModel;
@@ -29,9 +29,9 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('foo', 0) => 0,
-            $this->prefix('bar', 1) => 1,
-            $this->prefix('baz', 2) => 2,
+            $this->prefix('foo', '5::0') => 0,
+            $this->prefix('bar', '5::1') => 1,
+            $this->prefix('baz', '5::2') => 2,
         ], $this->makeMap($input));
     }
 
@@ -44,9 +44,9 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('foo_qwe', 0) => 0,
-            $this->prefix('bar_rty', 1) => 1,
-            $this->prefix('baz_asd', 2) => 2,
+            $this->prefix('foo_qwe', '5::0') => 0,
+            $this->prefix('bar_rty', '5::1') => 1,
+            $this->prefix('baz_asd', '5::2') => 2,
         ], $this->makeMap($input));
     }
 
@@ -60,10 +60,10 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('foo', 0) => 0,
-            $this->prefix('bar', 1) => 1,
-            $this->prefix('baz', 2) => 2,
-            $this->prefix('foo', 3) => 3,
+            $this->prefix('foo', '5::0') => 0,
+            $this->prefix('bar', '5::1') => 1,
+            $this->prefix('baz', '5::2') => 2,
+            $this->prefix('foo', '5::3') => 3,
         ], $this->makeMap($input));
     }
 
@@ -76,9 +76,9 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('foo', 0) => 0,
-            $this->prefix('bar', 1) => 1,
-            $this->prefix('baz', 2) => 2,
+            $this->prefix('foo', '5::0') => 0,
+            $this->prefix('bar', '5::1') => 1,
+            $this->prefix('baz', '5::2') => 2,
         ], $this->makeMap($input));
     }
 
@@ -91,9 +91,9 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('123', 0) => 0,
-            $this->prefix('234', 1) => 1,
-            $this->prefix('345', 2) => 2,
+            $this->prefix('123', '2::0') => 0,
+            $this->prefix('234', '2::1') => 1,
+            $this->prefix('345', '2::2') => 2,
         ], $this->makeMap($input));
     }
 
@@ -108,9 +108,9 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('foo', 0) => 0,
-            $this->prefix('bar', 1) => 1,
-            $this->prefix('baz', 2) => 2,
+            $this->prefix('foo', '5::0') => 0,
+            $this->prefix('bar', '5::1') => 1,
+            $this->prefix('baz', '5::2') => 2,
         ], $this->makeMap($input, $column));
     }
 
@@ -125,9 +125,9 @@ class MakeTest extends TestCase
         ]);
 
         $this->assertSame([
-            $this->prefix('foo', 0) => 0,
-            $this->prefix('bar', 1) => 1,
-            $this->prefix('baz', 2) => 2,
+            $this->prefix('foo', '5::0') => 0,
+            $this->prefix('bar', '5::1') => 1,
+            $this->prefix('baz', '5::2') => 2,
         ], $this->makeMap($input, $column));
     }
 
@@ -140,6 +140,6 @@ class MakeTest extends TestCase
 
     protected function prefix(string $key, int|string $prefix): string
     {
-        return $prefix . KeyNormalizer::Delimiter . $key;
+        return $prefix . Group::Delimiter . $key;
     }
 }

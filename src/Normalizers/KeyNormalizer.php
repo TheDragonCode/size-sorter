@@ -26,11 +26,13 @@ class KeyNormalizer extends Normalizer
             return (string) $value;
         }
 
-        return Cache::remember($value, static fn () => Str::of($value)
-            ->replaceMatches('/[\W_\s]+/u', ' ')
-            ->trim()
-            ->slug('_')
-            ->toString()
+        return Cache::remember(
+            $value,
+            static fn () => Str::of($value)
+                ->replaceMatches('/[\W_\s]+/u', ' ')
+                ->trim()
+                ->slug('_')
+                ->toString()
         );
     }
 }
