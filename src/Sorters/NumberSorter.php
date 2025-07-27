@@ -4,34 +4,40 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
-use DragonCode\SizeSorter\Services\Resolver;
+use Closure;
+use DragonCode\SizeSorter\Groups\Group;
+use Illuminate\Support\Str;
 
-class NumberSorter extends BaseSorter
+class NumberSorter extends Sorter
 {
-    public static function get(string $column, int $arrow = 1): callable
+    public static function callback(int $arrow = 1): Closure
     {
-        return static function (mixed $a, mixed $b) use ($column, $arrow) {
-            $a = static::number($a, $column);
-            $b = static::number($b, $column);
+        return static function (mixed $a, mixed $b) use ($arrow) {
+            $a = static::extract($a);
+            $b = static::extract($b);
 
-            if ($a[0] === $b[0]) {
-                if (isset($a[1], $b[1])) {
-                    if ($a[1] === $b[1]) {
-                        return 0;
-                    }
+            if ($a[0] !== $b[0]) {
+                return $a[0] < $b[0] ? -1 * $arrow : $arrow;
+            }
 
-                    return $a[1] < $b[1] ? -1 * $arrow : $arrow;
-                }
-
+            if (! isset($a[1], $b[1])) {
                 return 0;
             }
 
-            return $a[0] < $b[0] ? -1 * $arrow : $arrow;
+            if ($a[1] === $b[1]) {
+                return 0;
+            }
+
+            return $a[1] < $b[1] ? -1 * $arrow : $arrow;
         };
     }
 
-    protected static function number(mixed $value, string $column): array
+    protected static function extract(int|string $value): array
     {
-        return Resolver::number($value, $column);
+        return Str::of($value)
+            ->afterLast(Group::Delimiter)
+            ->explode('_')
+            ->map(static fn (int|string $value) => (int) $value)
+            ->all();
     }
 }

@@ -4,30 +4,22 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter\Sorters;
 
-use DragonCode\SizeSorter\Services\Resolver;
-use DragonCode\SizeSorter\Services\Str;
+use Closure;
+use Illuminate\Support\Str;
 
-class CharSorter extends BaseSorter
+class CharSorter extends Sorter
 {
-    public static function get(string $column, int $arrow = 1): callable
+    public static function callback(int $arrow = 1): Closure
     {
-        return static function (mixed $a, mixed $b) use ($column, $arrow) {
-            $a = static::key($a, $column);
-            $b = static::key($b, $column);
+        return static function (mixed $a, mixed $b) use ($arrow) {
+            $arrow = static::contains($a, '_') ? -1 : 1;
 
-            $arrow = static::contains($a, '/') && static::contains($b, '-') ? -1 : 1;
-
-            return Resolver::callback(static::resolveArrow($arrow, $column), $a, $b);
+            return ArrowSorter::callback($arrow)($a, $b);
         };
     }
 
-    protected static function resolveArrow(int $arrow, string $column): callable
+    protected static function contains(string $haystack, string $needle): bool
     {
-        return ArrowSorter::get($column, $arrow);
-    }
-
-    protected static function contains(string $value, string $needle): bool
-    {
-        return Str::contains($value, $needle);
+        return Str::contains($haystack, $needle);
     }
 }

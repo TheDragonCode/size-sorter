@@ -4,16 +4,19 @@ declare(strict_types=1);
 
 namespace DragonCode\SizeSorter;
 
-use DragonCode\SizeSorter\Enum\Group;
-use DragonCode\SizeSorter\Services\MainLogic;
-use DragonCode\SizeSorter\Services\Order;
+use Closure;
+use DragonCode\SizeSorter\Enums\GroupEnum;
+use DragonCode\SizeSorter\Services\Processor;
+use DragonCode\SizeSorter\Support\GroupOrder;
+use DragonCode\SizeSorter\Support\Resolve;
 use DragonCode\SizeSorter\Support\Validator;
+use Illuminate\Support\Collection;
 
 class SizeSorter
 {
-    protected string $column = 'value';
+    protected Closure|string $column = 'value';
 
-    protected ?array $orderBy = null;
+    protected ?iterable $orderBy = null;
 
     public static function items(iterable $items): static
     {
@@ -22,10 +25,10 @@ class SizeSorter
 
     public function __construct(
         protected readonly iterable $items,
-        protected readonly Order $order = new Order
+        protected readonly Processor $processor = new Processor,
     ) {}
 
-    public function column(string $name): static
+    public function column(Closure|string $name): static
     {
         $this->column = $name;
 
@@ -33,25 +36,49 @@ class SizeSorter
     }
 
     /**
-     * @param  Group[]|null  $order
+     * @param  GroupEnum[]|null  $order
      * @return $this
      */
-    public function orderBy(?array $order): static
+    public function orderBy(?iterable $order): static
     {
-        Validator::ensure($order, Group::class);
+        if (empty($order)) {
+            return $this;
+        }
 
-        $this->orderBy = $this->order->resolve($order);
+        Validator::ensure($order, GroupEnum::class);
+
+        $this->orderBy = $order;
 
         return $this;
     }
 
-    public function sort(): iterable
+    public function sort(): Collection
     {
-        return MainLogic::sort($this->items, $this->column, $this->getOrderBy());
+        return $this->processor->run(
+            $this->getItems(),
+            $this->getColumn(),
+            $this->getOrderBy()
+        );
     }
 
-    protected function getOrderBy(): ?array
+    protected function getItems(): Collection
     {
-        return $this->orderBy ?? $this->order->resolve();
+        return new Collection($this->items);
+    }
+
+    protected function getColumn(): Closure
+    {
+        if ($this->column instanceof Closure) {
+            return $this->column;
+        }
+
+        return fn (mixed $item) => Resolve::value($item, $this->column);
+    }
+
+    protected function getOrderBy(): array
+    {
+        return GroupOrder::get(
+            $this->orderBy
+        );
     }
 }
