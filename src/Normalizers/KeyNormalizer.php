@@ -10,7 +10,7 @@ use Illuminate\Support\Str;
 use function is_bool;
 use function is_numeric;
 
-class KeyNormalizer extends Normalizer
+class KeyNormalizer
 {
     public static function normalize(mixed $value): string
     {
