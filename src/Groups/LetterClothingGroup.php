@@ -40,21 +40,21 @@ class LetterClothingGroup extends Group
         if (preg_match('/^(x+)?s$/', $value, $matches)) {
             $count = isset($matches[1]) ? strlen($matches[1]) : 1;
 
-            return (string) static::multiply('s', $count);
+            return (string) static::multiply('s', $count + 1);
         }
 
         if (preg_match('/^(\d+)xs$/', $value, $matches)) {
-            return (string) static::multiply('s', (int) $matches[1], 1);
+            return (string) static::multiply('s', (int) $matches[1] + 1, 1);
         }
 
         if (preg_match('/^(x+)l$/', $value, $matches)) {
             $count = strlen($matches[1]);
 
-            return (string) static::multiply('l', $count);
+            return (string) static::multiply('l', $count + 1);
         }
 
         if (preg_match('/^(\d+)xl$/', $value, $matches)) {
-            return (string) static::multiply('l', (int) $matches[1], 1);
+            return (string) static::multiply('l', (int) $matches[1] + 1, 1);
         }
 
         return '0';

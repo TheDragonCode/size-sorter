@@ -29,6 +29,6 @@ abstract class Group
 
     protected static function prepare(mixed $value): string
     {
-        return $value;
+        return (string) $value;
     }
 }
