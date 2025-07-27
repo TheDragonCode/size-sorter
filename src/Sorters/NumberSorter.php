@@ -8,7 +8,7 @@ use Closure;
 use DragonCode\SizeSorter\Groups\Group;
 use Illuminate\Support\Str;
 
-class NumberSorter extends Sorter
+class NumberSorter
 {
     public static function callback(int $arrow = 1): Closure
     {
