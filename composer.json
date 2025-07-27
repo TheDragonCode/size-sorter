@@ -59,9 +59,7 @@
     },
     "config": {
         "allow-plugins": {
-            "dragon-code/codestyler": true,
             "ergebnis/composer-normalize": true,
-            "friendsofphp/php-cs-fixer": true,
             "pestphp/pest-plugin": true,
             "symfony/thanks": true
         },
@@ -75,6 +73,18 @@
             "composer normalize"
         ],
         "style": "vendor/bin/pint --parallel",
-        "test": "vendor/bin/pest"
+        "test": "vendor/bin/pest",
+        "test:coverage": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan test --parallel --coverage"
+        ],
+        "test:types": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php vendor/bin/pest --type-coverage --min=95"
+        ],
+        "test:update": [
+            "rm -rf tests/.pest/snapshots",
+            "@test"
+        ]
     }
 }
