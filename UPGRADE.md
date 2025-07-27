@@ -2,11 +2,19 @@
 
 ## To 2.x from 1.0
 
+### PHP 8.2.0 Required
+
+`Size Sorter` now requires PHP 8.2.0 or greater.
+
 ### Updating Dependencies
 
 You should update the following dependencies in your application's `composer.json` file:
 
 - `dragon-code/size-sorter` to `^2.0`
+
+### Frameworks Compatibility
+
+When using the Laravel framework, make sure that its version is 11.0 or greater.
 
 ### Changing Namespace
 

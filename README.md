@@ -28,6 +28,10 @@ Or manually update `require` block of `composer.json` and run composer update.
 }
 ```
 
+> [!TIP]
+> 
+> When using the Laravel framework, make sure that its version is 11.0 or greater.
+
 ## Usage
 
 When calling a sort with common values, each element will be assigned to one of five groups:
