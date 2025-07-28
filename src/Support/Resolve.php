@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace DragonCode\SizeSorter\Support;
 
 use BackedEnum;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Stringable;
 use UnitEnum;
 
+use function class_exists;
 use function is_array;
 use function is_object;
 
@@ -22,6 +24,10 @@ class Resolve
 
         if ($item instanceof UnitEnum) {
             return $item->name;
+        }
+
+        if (class_exists(Model::class) && $item instanceof Model) {
+            return $item->getAttribute($column);
         }
 
         if ($item instanceof Stringable) {

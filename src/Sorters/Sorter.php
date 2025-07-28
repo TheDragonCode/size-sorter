@@ -6,17 +6,11 @@ namespace DragonCode\SizeSorter\Sorters;
 
 use Closure;
 
-use function array_sum;
-
 abstract class Sorter
 {
-    protected static array $multiplier = [
-        0 => 1000000,
-        1 => 1000,
-        2 => 1,
-    ];
-
     abstract protected static function extract(int|string $value): array;
+
+    abstract protected static function normalize(array $values): int|string;
 
     public static function callback(int $arrow = 1): Closure
     {
@@ -30,14 +24,5 @@ abstract class Sorter
 
             return $a < $b ? -1 * $arrow : $arrow;
         };
-    }
-
-    protected static function normalize(array $values): int
-    {
-        foreach ($values as $key => &$value) {
-            $value *= static::$multiplier[$key] ?? 1;
-        }
-
-        return array_sum($values);
     }
 }
