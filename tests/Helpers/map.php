@@ -3,6 +3,14 @@
 declare(strict_types=1);
 
 use DragonCode\SizeSorter\Support\Map;
+use Tests\Fixtures\Objects\Stringable;
+
+function makeMap(array $items, ?Closure $column = null): array
+{
+    $column ??= static fn (int|string|Stringable $value) => $value;
+
+    return Map::make(collect($items), $column)->all();
+}
 
 function applyMap(array $items, ?array $map = null): array
 {

@@ -7,14 +7,14 @@ namespace DragonCode\SizeSorter\Sorters;
 use DragonCode\SizeSorter\Groups\Group;
 use Illuminate\Support\Str;
 
-class NumberSorter extends Sorter
+class CharSorter extends Sorter
 {
     protected static function extract(int|string $value): array
     {
         return Str::of($value)
             ->afterLast(Group::Delimiter)
             ->explode('_')
-            ->map(static fn (int|string $value) => (int) $value)
+            ->map(static fn (int|string $value) => (string) $value)
             ->all();
     }
 }

@@ -76,11 +76,11 @@
         "test": "vendor/bin/pest",
         "test:coverage": [
             "Composer\\Config::disableProcessTimeout",
-            "@php artisan test --parallel --coverage"
+            "vendor/bin/pest --coverage"
         ],
         "test:types": [
             "Composer\\Config::disableProcessTimeout",
-            "@php vendor/bin/pest --type-coverage --min=95"
+            "vendor/bin/pest --type-coverage --min=95"
         ],
         "test:update": [
             "rm -rf tests/.pest/snapshots",

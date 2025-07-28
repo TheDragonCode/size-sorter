@@ -42,11 +42,9 @@ class Processor
 
     protected function sortPerGroup(Collection $items, int $group): Collection
     {
-        return match ($group) {
-            GroupEnum::LetterClothingSize->value,
-            GroupEnum::ClothesAndShoes->value => $this->sort->byNumber($items),
-            default                           => $this->sort->byAlphabet($items),
-        };
+        return $group === GroupEnum::OtherSizes->value
+            ? $this->sort->byAlphabet($items)
+            : $this->sort->byNumber($items);
     }
 
     protected function detectGroup(string $key): int

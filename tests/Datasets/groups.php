@@ -16,7 +16,7 @@ dataset('groups', [
     ],
 
     'partial' => [
-        'input' => [
+        [
             GroupEnum::OtherSizes,
             GroupEnum::BraSize,
         ],
@@ -31,7 +31,7 @@ dataset('groups', [
     ],
 
     'full random' => [
-        'input' => [
+        [
             GroupEnum::OtherSizes,
             GroupEnum::BraSize,
             GroupEnum::ClothesAndShoes,
@@ -40,6 +40,33 @@ dataset('groups', [
         ],
 
         'output' => [
+            GroupEnum::OtherSizes,
+            GroupEnum::BraSize,
+            GroupEnum::ClothesAndShoes,
+            GroupEnum::OverallDimensions,
+            GroupEnum::LetterClothingSize,
+        ],
+    ],
+]);
+
+dataset('input groups', [
+    'empty' => [
+        null,
+    ],
+
+    'full' => [
+        GroupEnum::sorted(),
+    ],
+
+    'partial' => [
+        [
+            GroupEnum::OtherSizes,
+            GroupEnum::BraSize,
+        ],
+    ],
+
+    'full random' => [
+        [
             GroupEnum::OtherSizes,
             GroupEnum::BraSize,
             GroupEnum::ClothesAndShoes,

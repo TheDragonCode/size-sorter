@@ -28,12 +28,12 @@ dataset('bra detector', [
 ]);
 
 dataset('bra normalizer', [
-    ['70B', '70b'],
-    ['70C', '70c'],
-    ['75A', '75a'],
-    ['75B', '75b'],
-    ['75C', '75c'],
-    ['80B', '80b'],
+    ['70B', '702'],
+    ['70C', '703'],
+    ['75A', '751'],
+    ['75B', '752'],
+    ['75C', '753'],
+    ['80B', '802'],
 ]);
 
 dataset('clothes and shoes detector', [
@@ -166,10 +166,10 @@ dataset('overall dimensions detector', [
 ]);
 
 dataset('overall dimensions normalizer', [
-    ['39x38x15 см', '39x38x15_sm'], // latin X
-    ['40х37х19 см', '40x37x19_sm'], // cyrillic X
-    ['40x38x19 sm', '40x38x19_sm'], // latin X
-    ['40х38х19 sm', '40x38x19_sm'], // cyrillic X
+    ['39x38x15 см', '39_38_15'], // latin X
+    ['40х37х19 см', '40_37_19'], // cyrillic X
+    ['40x38x19 sm', '40_38_19'], // latin X
+    ['40х38х19 sm', '40_38_19'], // cyrillic X
 ]);
 
 dataset('other detector', [
@@ -286,14 +286,14 @@ dataset('letter clothing detector', [
 ]);
 
 dataset('letter clothing normalizer', [
-    ['2XS', '301'],
-    ['XXS', '300'],
-    ['XXS/XS', '300_200'],
-    ['XXS-XS', '300_200'],
-    ['XS', '200'],
-    ['XS/S', '200_100'],
-    ['S', '100'],
-    ['S/M', '100_1000'],
+    ['2XS', '199'],
+    ['XXS', '200'],
+    ['XXS/XS', '200_300'],
+    ['XXS-XS', '200_300'],
+    ['XS', '300'],
+    ['XS/S', '300_400'],
+    ['S', '400'],
+    ['S/M', '400_1000'],
     ['M', '1000'],
     ['M/L', '1000_10000'],
     ['L', '10000'],
