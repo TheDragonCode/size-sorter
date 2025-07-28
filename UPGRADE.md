@@ -57,11 +57,11 @@ You should update the namespace and method name to call:
 > The array to sort must now consist of GroupEnum objects.
 > Integers are no longer accepted.
 
-- 'Group::GROUP_1' replaced by `GroupEnum::LetterClothingSize`
-- 'Group::GROUP_2' replaced by `GroupEnum::ClothesAndShoes`
-- 'Group::GROUP_3' replaced by `GroupEnum::BraSize`
-- 'Group::GROUP_4' replaced by `GroupEnum::OverallDimensions`
-- 'Group::GROUP_5' replaced by `GroupEnum::OtherSizes`
+- `Group::GROUP_1` replaced by `GroupEnum::LetterClothingSize`
+- `Group::GROUP_2` replaced by `GroupEnum::ClothesAndShoes`
+- `Group::GROUP_3` replaced by `GroupEnum::BraSize`
+- `Group::GROUP_4` replaced by `GroupEnum::OverallDimensions`
+- `Group::GROUP_5` replaced by `GroupEnum::OtherSizes`
 
 ```php
 enum GroupEnum: int
