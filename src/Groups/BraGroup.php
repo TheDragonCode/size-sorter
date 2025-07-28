@@ -13,7 +13,7 @@ class BraGroup extends Group
 {
     protected static GroupEnum $group = GroupEnum::BraSize;
 
-    protected static array|string $pattern = '/^(\d+[a-f]{1,2})$/';
+    protected static array|string $pattern = '/^(\d+[a-f]{1})$/';
 
     protected static function prepare(mixed $value): string
     {

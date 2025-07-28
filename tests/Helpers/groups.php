@@ -9,6 +9,7 @@ use DragonCode\SizeSorter\Groups\Group;
 use DragonCode\SizeSorter\Groups\LetterClothingGroup;
 use DragonCode\SizeSorter\Groups\OtherGroup;
 use DragonCode\SizeSorter\Groups\OverallDimensionsGroup;
+use DragonCode\SizeSorter\Groups\VolumeGroup;
 
 function groupDetect(Group|string $group, int|string $input, bool $toBe): void
 {
@@ -38,6 +39,7 @@ function findGroup(string $groupClass): int
         ClothesAndShoesGroup::class   => GroupEnum::ClothesAndShoes->value,
         LetterClothingGroup::class    => GroupEnum::LetterClothingSize->value,
         OtherGroup::class             => GroupEnum::OtherSizes->value,
+        VolumeGroup::class            => GroupEnum::VolumeGroup->value,
         OverallDimensionsGroup::class => GroupEnum::OverallDimensions->value,
     };
 }

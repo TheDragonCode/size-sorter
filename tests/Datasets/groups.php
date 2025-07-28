@@ -27,6 +27,7 @@ dataset('groups', [
             GroupEnum::LetterClothingSize,
             GroupEnum::ClothesAndShoes,
             GroupEnum::OverallDimensions,
+            GroupEnum::VolumeGroup,
         ],
     ],
 
@@ -45,6 +46,7 @@ dataset('groups', [
             GroupEnum::ClothesAndShoes,
             GroupEnum::OverallDimensions,
             GroupEnum::LetterClothingSize,
+            GroupEnum::VolumeGroup,
         ],
     ],
 ]);
@@ -72,6 +74,7 @@ dataset('input groups', [
             GroupEnum::ClothesAndShoes,
             GroupEnum::OverallDimensions,
             GroupEnum::LetterClothingSize,
+            GroupEnum::VolumeGroup,
         ],
     ],
 ]);

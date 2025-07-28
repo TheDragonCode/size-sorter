@@ -13,7 +13,9 @@ class OverallDimensionsGroup extends Group
 {
     protected static GroupEnum $group = GroupEnum::OverallDimensions;
 
-    protected static array|string $pattern = '/^([\d]+x?){1,3}([_\sms]+)$/';
+    protected static array|string $pattern = '/^(\d+[_x]?){1,}([_\scms])+$/';
+
+    protected static array|string|null $exceptPattern = '/^(\d+[a-f]{1})$/';
 
     protected static function prepare(mixed $value): string
     {

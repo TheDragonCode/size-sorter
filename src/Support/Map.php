@@ -10,6 +10,7 @@ use DragonCode\SizeSorter\Groups\ClothesAndShoesGroup;
 use DragonCode\SizeSorter\Groups\LetterClothingGroup;
 use DragonCode\SizeSorter\Groups\OtherGroup;
 use DragonCode\SizeSorter\Groups\OverallDimensionsGroup;
+use DragonCode\SizeSorter\Groups\VolumeGroup;
 use DragonCode\SizeSorter\Normalizers\KeyNormalizer;
 use Illuminate\Support\Collection;
 
@@ -45,6 +46,7 @@ class Map
             LetterClothingGroup::detect($value)    => LetterClothingGroup::normalize($value, $key),
             ClothesAndShoesGroup::detect($value)   => ClothesAndShoesGroup::normalize($value, $key),
             BraGroup::detect($value)               => BraGroup::normalize($value, $key),
+            VolumeGroup::detect($value)            => VolumeGroup::normalize($value, $key),
             OverallDimensionsGroup::detect($value) => OverallDimensionsGroup::normalize($value, $key),
             default                                => OtherGroup::normalize($value, $key)
         };

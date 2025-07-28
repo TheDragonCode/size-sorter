@@ -70,6 +70,7 @@ enum GroupEnum: int
     case ClothesAndShoes    = 2;
     case BraSize            = 3;
     case OverallDimensions  = 4;
-    case OtherSizes         = 5;
+    case VolumeGroup        = 5; // New group
+    case OtherSizes         = 100;
 }
 ```

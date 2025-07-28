@@ -17,8 +17,14 @@ abstract class Group
 
     protected static array|string $pattern;
 
+    protected static array|string|null $exceptPattern = null;
+
     public static function detect(string $value): bool
     {
+        if (static::$exceptPattern && Str::isMatch(static::$exceptPattern, $value)) {
+            return false;
+        }
+
         return Str::isMatch(static::$pattern, $value);
     }
 
