@@ -98,11 +98,12 @@ return SizeSorter::items([
 
 By default, sizes are sorted by the following logical blocks:
 
-1. Letter clothing size (XXS, XS, M, L, etc.)
+1. Letter clothing size (XXS, XS, M, L, 2XL, etc.)
 2. Numerical size of clothes and shoes (9, 10, 44-46, 48, etc.)
 3. Bra size (70B, 75A, 80C, etc...)
 4. Overall dimensions of items (40x38x19 sm, etc.)
-5. Other values
+5. Volumes (450 ml, 30 l, 450ml, 30l, etc.)
+6. Other values
 
 But you can change the order by specifying identifiers as the third parameter:
 
