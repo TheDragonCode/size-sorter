@@ -12,7 +12,6 @@ use DragonCode\SizeSorter\Groups\OtherGroup;
 use DragonCode\SizeSorter\Groups\OverallDimensionsGroup;
 use DragonCode\SizeSorter\Normalizers\KeyNormalizer;
 use Illuminate\Support\Collection;
-use Stringable;
 
 class Map
 {
@@ -51,7 +50,7 @@ class Map
         };
     }
 
-    protected static function normalize(float|int|string|Stringable $value): string
+    protected static function normalize(mixed $value): string
     {
         return KeyNormalizer::normalize($value);
     }
