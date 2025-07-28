@@ -40,7 +40,8 @@ When calling a sort with common values, each element will be assigned to one of 
 2. Numerical size of clothes and shoes (9, 10, 44-46, 48, etc.)
 3. Bra size (70B, 75A, 80C, etc...)
 4. Overall dimensions of items (40x38x19 sm, etc.)
-5. Other values
+5. Volumes (450 ml, 30 l, 450ml, 30l, etc.)
+6. Other values
 
 ```php
 use DragonCode\SizeSorter\SizeSorter;
