@@ -25,6 +25,12 @@ dataset('bra detector', [
     ['40х38х19 sm'],
     ['ONE SIZE'],
     ['some'],
+    ['450 ml'],
+    ['45ml'],
+    ['45l'],
+    ['45 l'],
+    ['45 мл'],
+    ['45мл'],
 ]);
 
 dataset('bra normalizer', [
@@ -95,6 +101,12 @@ dataset('clothes and shoes detector', [
     ['41х38х15 см'],
     ['ONE SIZE'],
     ['some'],
+    ['450 ml'],
+    ['45ml'],
+    ['45l'],
+    ['45 l'],
+    ['45 мл'],
+    ['45мл'],
 ]);
 
 dataset('clothes and shoes normalizer', [
@@ -163,6 +175,12 @@ dataset('overall dimensions detector', [
     ['80B'],
     ['ONE SIZE'],
     ['some'],
+    ['450 ml'],
+    ['45ml'],
+    ['45l'],
+    ['45 l'],
+    ['45 мл'],
+    ['45мл'],
 ]);
 
 dataset('overall dimensions normalizer', [
@@ -196,6 +214,12 @@ dataset('other detector', [
     ['40х38х19 sm', true],
     ['ONE SIZE', true],
     ['some', true],
+    ['450 ml', true],
+    ['45ml', true],
+    ['45l', true],
+    ['45 l', true],
+    ['45 мл', true],
+    ['45мл', true],
 ]);
 
 dataset('other normalizer', [
@@ -283,6 +307,12 @@ dataset('letter clothing detector', [
     ['41х38х15 см'],
     ['ONE SIZE'],
     ['some'],
+    ['450 ml'],
+    ['45ml'],
+    ['45l'],
+    ['45 l'],
+    ['45 мл'],
+    ['45мл'],
 ]);
 
 dataset('letter clothing normalizer', [
@@ -301,4 +331,44 @@ dataset('letter clothing normalizer', [
     ['XL', '20000'],
     ['XL/2XL', '20000_30001'],
     ['XXL', '30000'],
+]);
+
+dataset('volume detector', [
+    ['450 ml', true],
+    ['45ml', true],
+    ['45l', true],
+    ['45 l', true],
+    ['45 мл', true],
+    ['45мл', true],
+
+    ['70B'],
+    ['70C'],
+    ['75A'],
+    ['75B'],
+    ['75C'],
+    ['80B'],
+    ['XXS'],
+    ['XXS'],
+    ['XXS/XS'],
+    ['XXS-XS'],
+    ['1'],
+    ['2'],
+    [26],
+    [28],
+    ['44-46'],
+    ['44/46'],
+    ['52-56'],
+    ['40х38х15 см'],
+    ['40х38х19 sm'],
+    ['ONE SIZE'],
+    ['some'],
+]);
+
+dataset('volume normalizer', [
+    ['450 ml', '450_0'],
+    ['45ml', '45'],
+    ['45l', '45'],
+    ['45 l', '45_0'],
+    ['45 мл', '45_0'],
+    ['45мл', '45'],
 ]);

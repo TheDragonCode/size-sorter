@@ -115,6 +115,7 @@ return new SizeSorter($items)
         Group::OtherSizes,
         Group::OverallDimensions,
         Group::ClothesAndShoes,
+        Group::VolumeGroup,
         Group::LetterClothingSize,
     ])
     ->sort();

@@ -10,7 +10,8 @@ enum GroupEnum: int
     case ClothesAndShoes    = 2;
     case BraSize            = 3;
     case OverallDimensions  = 4;
-    case OtherSizes         = 5;
+    case VolumeGroup        = 5;
+    case OtherSizes         = 100;
 
     public static function sorted(): array
     {
@@ -19,6 +20,7 @@ enum GroupEnum: int
             self::ClothesAndShoes,
             self::BraSize,
             self::OverallDimensions,
+            self::VolumeGroup,
             self::OtherSizes,
         ];
     }
