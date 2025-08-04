@@ -19,6 +19,10 @@ class Processor
 
     public function run(Collection $items, Closure $column, array $orderBy): Collection
     {
+        if ($items->isEmpty()) {
+            return $items;
+        }
+
         $sorted = $this->sortItems($items, $column);
 
         $map = $this->sortGroups($sorted, $orderBy);
@@ -36,7 +40,7 @@ class Processor
     protected function sortGroups(Collection $items, array $orderBy): Collection
     {
         return Collection::make($orderBy)->map(
-            fn (GroupEnum $group) => $items->get($group->value)
+            fn (GroupEnum $group) => $items->get($group->value, [])
         )->collapseWithKeys();
     }
 
