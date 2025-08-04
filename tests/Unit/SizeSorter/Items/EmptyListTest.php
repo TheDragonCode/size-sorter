@@ -12,7 +12,7 @@ test('array', function () {
 });
 
 test('collection', function () {
-    $actual = SizeSorter::items(new Collection())->sort()->all();
+    $actual = SizeSorter::items(new Collection)->sort()->all();
 
     expect($actual)->toBeEmpty()->toBe([]);
 });
