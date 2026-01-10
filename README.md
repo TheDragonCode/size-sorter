@@ -1,6 +1,6 @@
 # Product Size Sorter
 
-![The Dragon Code Product size sorting](https://preview.dragon-code.pro/TheDragonCode/Product%20size%20sorting.svg?brand=php)
+![The Dragon Code Product size sorting](https://banners.beyondco.de/Size%20Sorter.png?theme=light&packageManager=composer+require&packageName=dragon-code%2Fsize-sorter&pattern=topography&style=style_2&description=by+The+Dragon+Code&md=1&showWatermark=1&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg)
 
 [![Stable Version][badge_stable]][link_packagist]
 [![Total Downloads][badge_downloads]][link_packagist]
